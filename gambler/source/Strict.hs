@@ -7,11 +7,11 @@ module Strict
     {- * Maybe -} Maybe (..), lazy, strict,
     {- * Either -} Either (..), hush,
     {- * Tuples -} Tuple2 (..), Tuple3 (..),
-    {- * Shortcut -} Shortcut (..), Vitality (..), unlessDead, shortcut2,
+    {- * Shortcut -} Vitality (..), Will (..),
+        unlessDead, vitality2, willSave,
   )
   where
 
-import Control.Applicative (Applicative (pure, (<*>)))
 import Data.Functor (Functor (..))
 import Data.Monoid (Monoid, mempty)
 import Data.Semigroup (Semigroup, (<>))
@@ -46,29 +46,33 @@ data Tuple2 a b = Tuple2 a b
 
 data Tuple3 a b c = Tuple3 a b c
 
-data Vitality = Dead | Ambivalent | Alive
+data Will = Ambivalent | Tenacious
 
-instance Semigroup Vitality where
-    Alive <> _ = Alive
-    _ <> Alive = Alive
-    Ambivalent <> _ = Ambivalent
-    _ <> Ambivalent = Ambivalent
-    Dead <> Dead = Dead
+instance Semigroup Will where
+    Tenacious <> _ = Tenacious
+    _ <> Tenacious = Tenacious
+    _ <> _ = Ambivalent
 
-instance Monoid Vitality where
-    mempty = Dead
+instance Monoid Will where
+    mempty = Ambivalent
 
-data Shortcut a = Shortcut{ vitality :: Vitality, shortcut :: a }
+data Vitality a b = Dead a | Alive Will b
+    deriving Functor
 
-instance Functor Shortcut where
-    fmap f (Shortcut v x) = Shortcut v (f x)
+unlessDead :: (b -> Vitality a b) -> Vitality a b -> Vitality a b
+unlessDead f s = case s of { Alive _ x -> f x; _ -> s }
 
-instance Applicative Shortcut where
-    pure = Shortcut mempty
-    Shortcut v1 f <*> Shortcut v2 x = Shortcut (v1 <> v2) (f x)
+willSave :: Vitality a b -> Vitality (Either a b) b
+willSave v = case v of
+    Dead x -> Dead (Left x)
+    Alive Ambivalent x -> Dead (Right x)
+    Alive Tenacious x -> Alive Tenacious x
 
-unlessDead :: forall x. (x -> Shortcut x) -> Shortcut x -> Shortcut x
-unlessDead f s = case vitality s of { Dead -> s; _ -> f (shortcut s) }
+type Vitality' a = Vitality a a
 
-shortcut2 :: forall x y. Shortcut x -> Shortcut y -> Shortcut (Strict.Tuple2 (Shortcut x) (Shortcut y))
-shortcut2 a b = Shortcut (Strict.vitality a <> Strict.vitality b) (Strict.Tuple2 a b)
+vitality2 :: Vitality a1 b1 -> Vitality a2 b2
+    -> Vitality' (Strict.Tuple2 (Vitality a1 b1) (Vitality a2 b2))
+vitality2 a@(Alive v1 _) b@(Alive v2 _) = Alive (v1 <> v2) (Strict.Tuple2 a b)
+vitality2 a@(Dead _)     b@(Alive v _)  = Alive v          (Strict.Tuple2 a b)
+vitality2 a@(Alive v _)  b@(Dead _)     = Alive v          (Strict.Tuple2 a b)
+vitality2 a@(Dead _)     b@(Dead _)     = Dead             (Strict.Tuple2 a b)

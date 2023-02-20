@@ -8,6 +8,7 @@ import Fold.Nonempty.Type (NonemptyFold)
 import Fold.Pure.Type (Fold (Fold))
 import Fold.Shortcut.Type (ShortcutFold (ShortcutFold))
 import Fold.Nonempty.Type (NonemptyFold (NonemptyFold))
+import Data.Void (absurd)
 
 import qualified Fold.Pure.Conversion as Fold
 import qualified Fold.Pure.Type as Fold
@@ -18,9 +19,10 @@ fold :: Fold a b -> ShortcutNonemptyFold a b
 fold
   Fold{ Fold.initial, Fold.step, Fold.extract } =
     ShortcutNonemptyFold
-      { initial = \a -> Shortcut Ambivalent (step initial a)
-      , step = \x a -> Shortcut Ambivalent (step x a)
-      , extract
+      { initial = \a -> Alive Ambivalent (step initial a)
+      , step = \x a -> Alive Ambivalent (step x a)
+      , extractDead = absurd
+      , extractLive = extract
       }
 
 effectfulFold :: EffectfulFold Identity a b -> ShortcutNonemptyFold a b
@@ -30,17 +32,20 @@ nonemptyFold :: NonemptyFold a b -> ShortcutNonemptyFold a b
 nonemptyFold
   NonemptyFold{ Nonempty.initial, Nonempty.step, Nonempty.extract } =
     ShortcutNonemptyFold
-      { initial = \a -> Shortcut Ambivalent (initial a)
-      , step = \x a -> Shortcut Ambivalent (step x a)
-      , extract
+      { initial = \a -> Alive Ambivalent (initial a)
+      , step = \x a -> Alive Ambivalent (step x a)
+      , extractDead = absurd
+      , extractLive = extract
       }
 
 shortcutFold :: ShortcutFold a b -> ShortcutNonemptyFold a b
-shortcutFold ShortcutFold{
-        Shortcut.initial, Shortcut.step, Shortcut.extract } =
+shortcutFold ShortcutFold{ Shortcut.initial, Shortcut.step,
+        Shortcut.extractDead, Shortcut.extractLive } =
     ShortcutNonemptyFold
-      { initial = let Shortcut v x = initial in
-            case v of { Dead -> \_ -> Shortcut Dead x; _ -> step x }
+      { initial = case initial of
+            Dead    x -> \_ -> Dead x
+            Alive _ x -> step x
       , step = step
-      , extract = extract
+      , extractDead = extractDead
+      , extractLive = extractLive
       }

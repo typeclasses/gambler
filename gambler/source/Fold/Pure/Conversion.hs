@@ -11,7 +11,7 @@ import Fold.Effectful.Type (EffectfulFold (EffectfulFold))
 import Fold.Nonempty.Type (NonemptyFold (NonemptyFold))
 import Fold.Shortcut.Type (ShortcutFold (ShortcutFold))
 import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold (ShortcutNonemptyFold))
-import Strict (Shortcut (Shortcut, shortcut))
+import Strict (Vitality (Dead, Alive))
 
 import qualified Fold.Effectful.Type as Effectful
 import qualified Fold.Nonempty.Type as Nonempty
@@ -44,22 +44,25 @@ nonemptyFold
 
 shortcutFold :: ShortcutFold a b -> Fold a b
 shortcutFold ShortcutFold{
-        Shortcut.initial, Shortcut.step, Shortcut.extract } =
+        Shortcut.initial, Shortcut.step, Shortcut.extractLive, Shortcut.extractDead } =
     Fold
       { initial = initial
-      , step = \s@(Shortcut v x) ->
-            case v of { Strict.Dead -> \_ -> s; _ -> step x }
-      , extract = \x -> extract (shortcut x)
+      , step = \s -> case s of { Dead _ -> \_ -> s; Alive _ x -> step x }
+      , extract = \s -> case s of
+            Dead    x -> extractDead x
+            Alive _ x -> extractLive x
       }
 
 shortcutNonemptyFold :: ShortcutNonemptyFold a b -> Fold a (Maybe b)
-shortcutNonemptyFold ShortcutNonemptyFold{
-        ShortcutNonempty.initial, ShortcutNonempty.step, ShortcutNonempty.extract } =
+shortcutNonemptyFold ShortcutNonemptyFold{ ShortcutNonempty.initial,
+        ShortcutNonempty.step, ShortcutNonempty.extractLive, ShortcutNonempty.extractDead } =
     Fold
       { initial = Strict.Nothing
       , step = \xm a -> case xm of
             Strict.Nothing -> Strict.Just (initial a)
-            Strict.Just (Shortcut v x) ->
-                case v of { Strict.Dead -> xm; _ -> Strict.Just (step x a) }
-      , extract = \xm -> Strict.lazy xm <&> \(Shortcut _ x) -> extract x
+            Strict.Just (Alive _ x) -> Strict.Just (step x a)
+            Strict.Just (Dead    _) -> xm
+      , extract = \xm -> Strict.lazy xm <&> \s -> case s of
+            Dead    x -> extractDead x
+            Alive _ x -> extractLive x
       }

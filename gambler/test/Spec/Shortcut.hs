@@ -4,12 +4,26 @@ import Fold.Shortcut
 
 import Test.Hspec
 
-import Control.Applicative (pure)
+import Control.Applicative (liftA2, pure)
 import Prelude (Integer, undefined)
 import Data.Maybe (Maybe (Just, Nothing))
+import Data.Char (Char)
+import Numeric.Natural (Natural)
+import Data.List ((++))
+
+import qualified Data.Char as Char
 
 spec :: SpecWith ()
 spec = describe "ShortcutFold" do
+
+    it "Applicative" do
+        let x = do
+                  a <- length
+                  b <- find Char.isLetter
+                  c <- elementIndex 'x'
+                  d <- elementIndex 'y'
+                  pure (a, b, c, d)
+        run x ("1234xyz" ++ undefined) `shouldBe` (6, Just 'x', Just 4, Just 5)
 
     describe "endpoint functions" do
         describe "first" do

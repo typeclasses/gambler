@@ -1,7 +1,7 @@
 module Fold.Shortcut.Type
   (
     ShortcutFold (..),
-    Shortcut (..), Vitality (..),
+    Will (..), Vitality (..),
   )
   where
 
@@ -9,41 +9,53 @@ import Control.Applicative (Applicative, liftA2, pure, (<*>))
 import Data.Functor (Functor, fmap)
 import Data.Monoid (Monoid, mempty)
 import Data.Semigroup (Semigroup, (<>))
-import Strict (Shortcut (..), Vitality (..))
-import Prelude (undefined)
+import Strict (Will (..), Vitality (..))
+import Data.Void (absurd)
 
 import qualified Strict
 
 {- | Processes inputs of type @a@, has the ability to halt midway
      through the stream, and results in a value of type @b@ -}
-data ShortcutFold a b = forall x. ShortcutFold
-    { initial :: Shortcut x
-    , step :: x -> a -> Shortcut x
-    , extract :: x -> b
+data ShortcutFold a b = forall x y. ShortcutFold
+    { initial :: Vitality x y
+    , step :: y -> a -> Vitality x y
+    , extractDead :: x -> b
+    , extractLive :: y -> b
     }
 
 instance Functor (ShortcutFold a) where
-    fmap f ShortcutFold{ step, initial, extract } =
-        ShortcutFold{ initial, step, extract = \x -> f (extract x) }
+    fmap f ShortcutFold{ step, initial, extractDead, extractLive } =
+        ShortcutFold
+          { initial
+          , step
+          , extractDead = \x -> f (extractDead x)
+          , extractLive = \x -> f (extractLive x)
+          }
 
 instance Applicative (ShortcutFold a) where
     pure b = ShortcutFold
-        { initial = Shortcut Dead ()
-        , step = undefined
-        , extract = \() -> b
+        { initial = Dead ()
+        , step = absurd
+        , extractDead = \() -> b
+        , extractLive = absurd
         }
 
     (<*>)
-        ShortcutFold{ initial = initialL, step = stepL, extract = extractL }
-        ShortcutFold{ initial = initialR, step = stepR, extract = extractR } =
+        ShortcutFold{ initial = initialL, step = stepL, extractDead = extractDeadL, extractLive = extractLiveL }
+        ShortcutFold{ initial = initialR, step = stepR, extractDead = extractDeadR, extractLive = extractLiveR } =
           ShortcutFold
-            { initial = Strict.shortcut2 initialL initialR
-            , step = \(Strict.Tuple2 xL xR) a -> Strict.shortcut2
+            { initial = Strict.vitality2 initialL initialR
+            , step = \(Strict.Tuple2 xL xR) a -> Strict.vitality2
                 (Strict.unlessDead (\x -> stepL x a) xL)
                 (Strict.unlessDead (\x -> stepR x a) xR)
-            , extract = \(Strict.Tuple2 xL xR) ->
-                  extractL (shortcut xL) (extractR (shortcut xR))
+            , extractDead = extract
+            , extractLive = extract
             }
+          where
+            extract(Strict.Tuple2 xL xR) = f x
+              where
+                f = case xL of { Dead a -> extractDeadL a; Alive _ b -> extractLiveL b }
+                x = case xR of { Dead a -> extractDeadR a; Alive _ b -> extractLiveR b }
 
 instance Semigroup b => Semigroup (ShortcutFold a b) where
     (<>) = liftA2 (<>)

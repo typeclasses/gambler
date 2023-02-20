@@ -1,10 +1,9 @@
-module Fold.ShortcutNonempty.Examples where
+module Fold.ShortcutNonempty.Examples
+  (
+    module Fold.ShortcutNonempty.Examples.Interesting,
+    module Fold.ShortcutNonempty.Examples.Boring,
+  )
+  where
 
-import Fold.ShortcutNonempty.Type
-
-import Data.Function (id)
-import Prelude (undefined)
-
-{-| The first input -}
-first :: ShortcutNonemptyFold a a
-first = ShortcutNonemptyFold{ initial = Shortcut Dead, step = undefined, extract = id }
+import Fold.ShortcutNonempty.Examples.Interesting
+import Fold.ShortcutNonempty.Examples.Boring

@@ -7,7 +7,7 @@ import Fold.Effectful.Type (EffectfulFold)
 import Fold.Pure.Type (Fold (Fold))
 import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold (ShortcutNonemptyFold))
 import Fold.Shortcut.Type (ShortcutFold)
-import Strict (Shortcut (Shortcut), Vitality (Dead))
+import Strict (Vitality (Dead, Alive))
 import Data.Functor.Identity (Identity)
 
 import qualified Fold.Pure.Type as Fold
@@ -30,10 +30,11 @@ shortcutFold x = fold (Fold.Conversion.shortcutFold x)
 
 shortcutNonemptyFold :: ShortcutNonemptyFold a b -> NonemptyFold a b
 shortcutNonemptyFold ShortcutNonemptyFold{ ShortcutNonempty.step,
-        ShortcutNonempty.initial, ShortcutNonempty.extract } =
+        ShortcutNonempty.initial, ShortcutNonempty.extractDead, ShortcutNonempty.extractLive } =
     NonemptyFold
       { initial = initial
-      , step = \s@(Shortcut v x) ->
-            case v of { Dead -> \_ -> s; _ -> step x }
-      , extract = \(Shortcut _ x) -> extract x
+      , step = \s -> case s of { Dead _ -> \_ -> s; Alive _ x -> step x }
+      , extract = \s -> case s of
+            Dead x -> extractDead x
+            Alive _ x -> extractLive x
       }

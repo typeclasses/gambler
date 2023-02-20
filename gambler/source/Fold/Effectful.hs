@@ -5,19 +5,15 @@ module Fold.Effectful
     {- * Run -} run,
 
     {- * Examples -}
-    {- ** General -} effect, effectMonoid,
-    {- ** Pure -}
-    {- *** Monoid -} monoid,
-    {- *** Length -} null, length,
-    {- *** Boolean -} and, or, all, any,
-    {- *** Numeric -} sum, product, mean, variance, standardDeviation,
-    {- *** Search -} element, notElement, find, lookup,
-    {- *** Index -} index, findIndex, elementIndex,
-    {- *** List -} list, reverseList,
-    {- ** Nonempty -}
-    {- *** General -} magma, semigroup,
-    {- *** Endpoints -} first, last,
-    {- *** Extrema -} maximum, minimum, maximumBy, minimumBy,
+    {- ** General -} effect, effectMonoid, magma, semigroup, monoid,
+    {- ** Length -} null, length,
+    {- ** Boolean -} and, or, all, any,
+    {- ** Numeric -} sum, product, mean, variance, standardDeviation,
+    {- ** Search -} element, notElement, find, lookup,
+    {- ** Index -} index, findIndex, elementIndex,
+    {- ** List -} list, reverseList,
+    {- ** Endpoints -} first, last,
+    {- ** Extrema -} maximum, minimum, maximumBy, minimumBy,
 
     {- * Conversion -} fold, nonemptyFold, shortcutFold, shortcutNonemptyFold,
 
@@ -27,9 +23,6 @@ module Fold.Effectful
 
 import Fold.Effectful.Conversion
 import Fold.Effectful.Examples
-import Fold.Effectful.Nonempty
-import Fold.Effectful.Pure
 import Fold.Effectful.Run
-import Fold.Effectful.ShortcutNonempty
 import Fold.Effectful.Type
 import Fold.Effectful.Utilities

@@ -25,6 +25,7 @@ common base
     ghc-options:
         -Wall
     default-extensions:
+        ApplicativeDo
         NoImplicitPrelude
     build-depends:
       , base ^>= 4.16 || ^>= 4.17
@@ -39,44 +40,47 @@ library
         Fold.Pure
         Fold.Pure.Conversion
         Fold.Pure.Examples
-        Fold.Pure.Nonempty
+        Fold.Pure.Examples.Interesting
+        Fold.Pure.Examples.Boring
         Fold.Pure.Run
-        Fold.Pure.ShortcutNonempty
         Fold.Pure.Type
         Fold.Pure.Utilities
 
         Fold.Effectful
         Fold.Effectful.Conversion
         Fold.Effectful.Examples
-        Fold.Effectful.Nonempty
-        Fold.Effectful.Pure
+        Fold.Effectful.Examples.Interesting
+        Fold.Effectful.Examples.Boring
         Fold.Effectful.Run
-        Fold.Effectful.ShortcutNonempty
         Fold.Effectful.Type
         Fold.Effectful.Utilities
 
         Fold.Nonempty
         Fold.Nonempty.Conversion
         Fold.Nonempty.Examples
-        Fold.Nonempty.Pure
+        Fold.Nonempty.Examples.Interesting
+        Fold.Nonempty.Examples.Boring
         Fold.Nonempty.Run
-        Fold.Nonempty.ShortcutNonempty
         Fold.Nonempty.Type
         Fold.Nonempty.Utilities
 
         Fold.Shortcut
         Fold.Shortcut.Run
-        Fold.Shortcut.ShortcutNonempty
         Fold.Shortcut.Type
         Fold.Shortcut.Examples
+        Fold.Shortcut.Examples.Interesting
+        Fold.Shortcut.Examples.Boring
         Fold.Shortcut.Conversion
+        Fold.Shortcut.Utilities
 
         Fold.ShortcutNonempty
         Fold.ShortcutNonempty.Run
         Fold.ShortcutNonempty.Type
         Fold.ShortcutNonempty.Examples
+        Fold.ShortcutNonempty.Examples.Interesting
+        Fold.ShortcutNonempty.Examples.Boring
         Fold.ShortcutNonempty.Conversion
-        Fold.ShortcutNonempty.Shortcut
+        Fold.ShortcutNonempty.Utilities
 
     other-modules:
         Strict

@@ -1,47 +1,12 @@
 ## 0.1.0.0
 
-Added modules:
+Adds `ShortcutFold` and `NonemptyFold`.
 
-- `Fold.Shortcut`
-- `Fold.Shortcut.Type`
-- `Fold.Shortcut.Run`
-- `Fold.Shortcut.Examples`
-- `Fold.Shortcut.Conversion`
-- `Fold.Shortcut.ShortcutNonempty`
+The following have changed from `Fold` to `ShortcutFold`:
+`and`, `or`, `all`, `any`, `element`, `notElement`, `find`,
+`lookup` `index`, `findIndex`, `elementIndex`.
 
-- `Fold.ShortcutNonempty`
-- `Fold.ShortcutNonempty.Type`
-- `Fold.ShortcutNonempty.Run`
-- `Fold.ShortcutNonempty.Examples`
-- `Fold.ShortcutNonempty.Conversion`
-- `Fold.ShortcutNonempty.Shortcut`
-
-- `Fold.Pure.ShortcutNonempty`
-
-- `Fold.Effectful.ShortcutNonempty`
-
-- `Fold.Nonempty.ShortcutNonempty`
-
-Additions to existing modules:
-
-- `Fold.Pure` (`shortcutFold`, `shortcutNonemptyFold`)
-- `Fold.Pure.Conversion` (`shortcutFold`, `shortcutNonemptyFold`)
-
-- `Fold.Nonempty` (`shortcutFold`, `shortcutNonemptyFold`)
-- `Fold.Nonempty.Conversion` (`shortcutFold`, `shortcutNonemptyFold`)
-
-- `Fold.Effectful` (`shortcutFold`, `shortcutNonemptyFold`)
-- `Fold.Effectful.Conversion` (`shortcutFold`, `shortcutNonemptyFold`)
-
-Removed:
-
-- `Fold.Effectful.Nonempty` (`first`)
-- `Fold.Nonempty.Examples` (`first`)
-- `Fold.Pure.Nonempty` (`first`)
-
-Type changes:
-
-- `Fold.first` changed from `NonemptyFold a a` to `ShortcutNonemptyFold a a`
+`first` has changed from `NonemptyFold` to `ShortcutNonemptyFold`.
 
 ## 0.0.1.0 (2023-02-20)
 
