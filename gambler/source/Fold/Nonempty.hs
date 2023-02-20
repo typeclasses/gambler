@@ -17,7 +17,7 @@ module Fold.Nonempty
     {- *** Index -} index, findIndex, elementIndex,
     {- *** List -} list, reverseList,
 
-    {- * Conversion -} fold,
+    {- * Conversion -} fold, effectfulFold,
 
     {- * Utilities -} duplicate, premap, nest,
   )
