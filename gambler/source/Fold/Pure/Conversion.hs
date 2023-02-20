@@ -9,9 +9,12 @@ import Data.Functor.Identity (Identity, runIdentity)
 import Data.Maybe (Maybe)
 import Fold.Effectful.Type (EffectfulFold (EffectfulFold))
 import Fold.Nonempty.Type (NonemptyFold (NonemptyFold))
+import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold (ShortcutNonemptyFold))
+import Strict (shortcut)
 
 import qualified Fold.Effectful.Type as Effectful
 import qualified Fold.Nonempty.Type as Nonempty
+import qualified Fold.ShortcutNonempty.Type as ShortcutNonempty
 import qualified Strict
 
 {-| Turn an effectful fold into a pure fold -}
@@ -32,6 +35,17 @@ nonemptyFold
     Fold
       { initial = Strict.Nothing
       , step = \xm a -> Strict.Just $ case xm of
+            Strict.Nothing -> initial a
+            Strict.Just x -> step x a
+      , extract = \xm -> extract <$> Strict.lazy xm
+      }
+
+shortcutNonemptyFold :: ShortcutNonemptyFold a b -> Fold a (Maybe b)
+shortcutNonemptyFold ShortcutNonemptyFold{
+        ShortcutNonempty.initial, ShortcutNonempty.step, ShortcutNonempty.extract } =
+    Fold
+      { initial = Strict.Nothing
+      , step = \xm a -> Strict.Just $ shortcut $ case xm of
             Strict.Nothing -> initial a
             Strict.Just x -> step x a
       , extract = \xm -> extract <$> Strict.lazy xm

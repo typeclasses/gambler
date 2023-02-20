@@ -17,7 +17,7 @@ module Fold.Pure
     {- *** Endpoints -} first, last,
     {- *** Extrema -} maximum, minimum, maximumBy, minimumBy,
 
-    {- * Conversion -} effectfulFold, nonemptyFold,
+    {- * Conversion -} effectfulFold, nonemptyFold, shortcutNonemptyFold,
 
     {- * Utilities -} duplicate, premap, prefilter, predropWhile, drop, nest,
   )

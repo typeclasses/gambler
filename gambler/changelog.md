@@ -1,3 +1,14 @@
+## 0.0.2.0
+
+Add module `Fold.ShortcutNonempty` et al.
+
+Additions to existing modules:
+
+- `Fold.Nonempty.shortcutNonemptyFold`
+- `Fold.Nonempty.Conversion.shortcutNonemptyFold`
+- `Fold.Pure.shortcutNonemptyFold`
+- `Fold.Pure.Conversion.shortcutNonemptyFold`
+
 ## 0.0.1.0 (2023-02-20)
 
 Add `Fold.Nonempty.effectfulFold`; this was already available from
