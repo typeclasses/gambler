@@ -26,6 +26,7 @@ import Fold.Pure.Type
 import Fold.Effectful.Examples
 import Fold.Nonempty.Examples hiding (list, reverseList)
 import Fold.Pure.Examples
+import Fold.ShortcutNonempty.Examples
 
 import Fold.Effectful.Utilities
 

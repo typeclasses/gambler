@@ -30,5 +30,6 @@ import Fold.Effectful.Examples
 import Fold.Effectful.Nonempty
 import Fold.Effectful.Pure
 import Fold.Effectful.Run
+import Fold.Effectful.ShortcutNonempty
 import Fold.Effectful.Type
 import Fold.Effectful.Utilities

@@ -27,5 +27,6 @@ import Fold.Nonempty.Conversion
 import Fold.Nonempty.Examples
 import Fold.Nonempty.Pure hiding (list, reverseList)
 import Fold.Nonempty.Run
+import Fold.Nonempty.ShortcutNonempty
 import Fold.Nonempty.Type
 import Fold.Nonempty.Utilities

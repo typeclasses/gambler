@@ -1,7 +1,7 @@
 module Fold.Nonempty.Examples
   (
     {- * General -} magma, semigroup,
-    {- * Endpoints -} first, last,
+    {- * Endpoints -} last,
     {- * Extrema -} maximum, minimum, maximumBy, minimumBy,
     {- * List -} list, reverseList,
   )
@@ -24,10 +24,6 @@ magma step = NonemptyFold{ initial = id, step, extract = id }
 {-| Append each new input on the right with ('<>') -}
 semigroup :: Semigroup a => NonemptyFold a a
 semigroup = magma (<>)
-
-{-| The first input -}
-first :: NonemptyFold a a
-first = magma const
 
 {-| The last input -}
 last :: NonemptyFold a a

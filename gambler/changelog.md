@@ -7,29 +7,41 @@ Added modules:
 - `Fold.Shortcut.Run`
 - `Fold.Shortcut.Examples`
 - `Fold.Shortcut.Conversion`
+- `Fold.Shortcut.ShortcutNonempty`
 
 - `Fold.ShortcutNonempty`
 - `Fold.ShortcutNonempty.Type`
 - `Fold.ShortcutNonempty.Run`
 - `Fold.ShortcutNonempty.Examples`
 - `Fold.ShortcutNonempty.Conversion`
+- `Fold.ShortcutNonempty.Shortcut`
+
+- `Fold.Pure.ShortcutNonempty`
+
+- `Fold.Effectful.ShortcutNonempty`
+
+- `Fold.Nonempty.ShortcutNonempty`
 
 Additions to existing modules:
 
-- `Fold.Pure.shortcutFold`
-- `Fold.Pure.shortcutNonemptyFold`
-- `Fold.Pure.Conversion.shortcutFold`
-- `Fold.Pure.Conversion.shortcutNonemptyFold`
+- `Fold.Pure` (`shortcutFold`, `shortcutNonemptyFold`)
+- `Fold.Pure.Conversion` (`shortcutFold`, `shortcutNonemptyFold`)
 
-- `Fold.Nonempty.shortcutFold`
-- `Fold.Nonempty.shortcutNonemptyFold`
-- `Fold.Nonempty.Conversion.shortcutFold`
-- `Fold.Nonempty.Conversion.shortcutNonemptyFold`
+- `Fold.Nonempty` (`shortcutFold`, `shortcutNonemptyFold`)
+- `Fold.Nonempty.Conversion` (`shortcutFold`, `shortcutNonemptyFold`)
 
-- `Fold.Effectful.shortcutFold`
-- `Fold.Effectful.shortcutNonemptyFold`
-- `Fold.Effectful.Conversion.shortcutFold`
-- `Fold.Effectful.Conversion.shortcutNonemptyFold`
+- `Fold.Effectful` (`shortcutFold`, `shortcutNonemptyFold`)
+- `Fold.Effectful.Conversion` (`shortcutFold`, `shortcutNonemptyFold`)
+
+Removed:
+
+- `Fold.Effectful.Nonempty` (`first`)
+- `Fold.Nonempty.Examples` (`first`)
+- `Fold.Pure.Nonempty` (`first`)
+
+Type changes:
+
+- `Fold.first` changed from `NonemptyFold a a` to `ShortcutNonemptyFold a a`
 
 ## 0.0.1.0 (2023-02-20)
 

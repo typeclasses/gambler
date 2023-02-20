@@ -2,7 +2,7 @@
 module Fold.Pure.Nonempty
   (
     {- * General -} magma, semigroup,
-    {- * Endpoints -} first, last,
+    {- * Endpoints -} last,
     {- * Extrema -} maximum, minimum, maximumBy, minimumBy,
   )
   where
@@ -23,10 +23,6 @@ magma step = nonemptyFold (Nonempty.magma step)
 {-| Append each new input on the right with ('<>') -}
 semigroup :: Semigroup a => Fold a (Maybe a)
 semigroup = nonemptyFold Nonempty.semigroup
-
-{-| The first input -}
-first :: Fold a (Maybe a)
-first = nonemptyFold Nonempty.first
 
 {-| The last input -}
 last :: Fold a (Maybe a)

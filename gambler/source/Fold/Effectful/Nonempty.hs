@@ -2,7 +2,7 @@
 module Fold.Effectful.Nonempty
   (
     {- * General -} magma, semigroup,
-    {- * Endpoints -} first, last,
+    {- * Endpoints -} last,
     {- * Extrema -} maximum, minimum, maximumBy, minimumBy,
   )
   where
@@ -24,10 +24,6 @@ magma step = fold (Pure.magma step)
 {-| Append each new input on the right with ('<>') -}
 semigroup :: Semigroup a => Monad m => EffectfulFold m a (Maybe a)
 semigroup = fold Pure.semigroup
-
-{-| The first input -}
-first :: Monad m => EffectfulFold m a (Maybe a)
-first = fold Pure.first
 
 {-| The last input -}
 last :: Monad m => EffectfulFold m a (Maybe a)

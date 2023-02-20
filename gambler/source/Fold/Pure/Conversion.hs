@@ -4,14 +4,14 @@ module Fold.Pure.Conversion where
 import Fold.Pure.Type
 
 import Data.Function (($))
-import Data.Functor ((<$>))
+import Data.Functor ((<$>), (<&>))
 import Data.Functor.Identity (Identity, runIdentity)
 import Data.Maybe (Maybe)
 import Fold.Effectful.Type (EffectfulFold (EffectfulFold))
 import Fold.Nonempty.Type (NonemptyFold (NonemptyFold))
 import Fold.Shortcut.Type (ShortcutFold (ShortcutFold))
 import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold (ShortcutNonemptyFold))
-import Strict (shortcut)
+import Strict (Shortcut (Shortcut, shortcut))
 
 import qualified Fold.Effectful.Type as Effectful
 import qualified Fold.Nonempty.Type as Nonempty
@@ -46,9 +46,10 @@ shortcutFold :: ShortcutFold a b -> Fold a b
 shortcutFold ShortcutFold{
         Shortcut.initial, Shortcut.step, Shortcut.extract } =
     Fold
-      { initial = shortcut initial
-      , step = \x a -> shortcut $ step x a
-      , extract = extract
+      { initial = initial
+      , step = \s@(Shortcut v x) ->
+            case v of { Strict.Dead -> \_ -> s; _ -> step x }
+      , extract = \x -> extract (shortcut x)
       }
 
 shortcutNonemptyFold :: ShortcutNonemptyFold a b -> Fold a (Maybe b)
@@ -56,8 +57,9 @@ shortcutNonemptyFold ShortcutNonemptyFold{
         ShortcutNonempty.initial, ShortcutNonempty.step, ShortcutNonempty.extract } =
     Fold
       { initial = Strict.Nothing
-      , step = \xm a -> Strict.Just $ shortcut $ case xm of
-            Strict.Nothing -> initial a
-            Strict.Just x -> step x a
-      , extract = \xm -> extract <$> Strict.lazy xm
+      , step = \xm a -> case xm of
+            Strict.Nothing -> Strict.Just (initial a)
+            Strict.Just (Shortcut v x) ->
+                case v of { Strict.Dead -> xm; _ -> Strict.Just (step x a) }
+      , extract = \xm -> Strict.lazy xm <&> \(Shortcut _ x) -> extract x
       }

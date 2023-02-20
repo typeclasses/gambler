@@ -116,3 +116,15 @@ spec = describe "Fold" do
         describe "reverseList" do
             it "gets all inputs in reverse" do
                 run reverseList xs `shouldBe` [4, 3, 2, 1]
+
+    describe "endpoint functions" do
+        describe "first" do
+            it "gets the first item" do
+                run first ([5, 4, 3] :: [Integer]) `shouldBe` Just 5
+            it "returns Nothing with no input" do
+                run first ([] :: [Integer]) `shouldBe` Nothing
+        describe "last" do
+            it "gets the last item" do
+                run last ([5, 4, 3] :: [Integer]) `shouldBe` Just 3
+            it "returns Nothing with no input" do
+                run last ([] :: [Integer]) `shouldBe` Nothing

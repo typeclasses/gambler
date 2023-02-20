@@ -27,5 +27,6 @@ import Fold.Pure.Conversion
 import Fold.Pure.Examples
 import Fold.Pure.Nonempty
 import Fold.Pure.Run
+import Fold.Pure.ShortcutNonempty
 import Fold.Pure.Type
 import Fold.Pure.Utilities
