@@ -3,12 +3,14 @@
 Added modules:
 
 - `Fold.Shortcut`
-- `Fold.Shortcut.Run`
 - `Fold.Shortcut.Type`
+- `Fold.Shortcut.Run`
+- `Fold.Shortcut.Examples`
 
 - `Fold.ShortcutNonempty`
-- `Fold.ShortcutNonempty.Run`
 - `Fold.ShortcutNonempty.Type`
+- `Fold.ShortcutNonempty.Run`
+- `Fold.ShortcutNonempty.Examples`
 
 Additions to existing modules:
 
