@@ -11,10 +11,10 @@ module Strict
   )
   where
 
-import Data.Functor (Functor (..))
 import Control.Applicative (Applicative (pure, (<*>)))
-import Data.Semigroup (Semigroup, (<>))
+import Data.Functor (Functor (..))
 import Data.Monoid (Monoid, mempty)
+import Data.Semigroup (Semigroup, (<>))
 
 import qualified Data.Maybe as Lazy
 
