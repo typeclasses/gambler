@@ -22,6 +22,11 @@ Additions to existing modules:
 - `Fold.Nonempty.Conversion.shortcutFold`
 - `Fold.Nonempty.Conversion.shortcutNonemptyFold`
 
+- `Fold.Effectful.shortcutFold`
+- `Fold.Effectful.shortcutNonemptyFold`
+- `Fold.Effectful.Conversion.shortcutFold`
+- `Fold.Effectful.Conversion.shortcutNonemptyFold`
+
 ## 0.0.1.0 (2023-02-20)
 
 Add `Fold.Nonempty.effectfulFold`; this was already available from

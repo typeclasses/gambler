@@ -19,7 +19,7 @@ module Fold.Effectful
     {- *** Endpoints -} first, last,
     {- *** Extrema -} maximum, minimum, maximumBy, minimumBy,
 
-    {- * Conversion -} fold, nonemptyFold,
+    {- * Conversion -} fold, nonemptyFold, shortcutFold, shortcutNonemptyFold,
 
     {- * Utilities -} hoist, duplicate, premap, prefilter, drop,
   )
