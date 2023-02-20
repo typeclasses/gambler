@@ -1,6 +1,14 @@
 ## 0.0.2.0
 
-Add module `Fold.ShortcutNonempty` et al.
+Added modules:
+
+- `Fold.Shortcut`
+- `Fold.Shortcut.Run`
+- `Fold.Shortcut.Type`
+
+- `Fold.ShortcutNonempty`
+- `Fold.ShortcutNonempty.Run`
+- `Fold.ShortcutNonempty.Type`
 
 Additions to existing modules:
 
