@@ -190,13 +190,13 @@ The example from the previous section can be run as follows:
 ## Authors
 
 This package began as mostly a copy of [foldl], with some features removed to
-minimize its dependency set. What remained in `gambler-0.0.1` was essentially
+minimize its dependency set. What remained in `gambler-0.0` was essentially
 the same as what could be found in `foldl-1.4.13`, subject only to
 reorganization, renaming, and minor modifications. The `Fold`, `EffectfulFold`,
 and `NonemptyFold` types are the work of Gabriella Gonzalez.
 
 `ShortcutFold` and `ShortcutNonemptyFold` were added by Mission Valley Software
-in `gambler-0.0.2`.
+in `gambler-0.1`.
 
 
 ## Future plans
