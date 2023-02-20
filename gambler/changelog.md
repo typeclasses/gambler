@@ -12,10 +12,15 @@ Added modules:
 
 Additions to existing modules:
 
-- `Fold.Nonempty.shortcutNonemptyFold`
-- `Fold.Nonempty.Conversion.shortcutNonemptyFold`
+- `Fold.Pure.shortcutFold`
 - `Fold.Pure.shortcutNonemptyFold`
+- `Fold.Pure.Conversion.shortcutFold`
 - `Fold.Pure.Conversion.shortcutNonemptyFold`
+
+- `Fold.Nonempty.shortcutFold`
+- `Fold.Nonempty.shortcutNonemptyFold`
+- `Fold.Nonempty.Conversion.shortcutFold`
+- `Fold.Nonempty.Conversion.shortcutNonemptyFold`
 
 ## 0.0.1.0 (2023-02-20)
 
