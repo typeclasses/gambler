@@ -14,7 +14,7 @@ import Data.Functor.Identity (Identity)
 {-| Turn a regular fold that allows empty input into a fold that
 requires at least one input -}
 fold :: Fold a b -> NonemptyFold a b
-fold Fold{ Fold.step, Fold.initial, Fold.extract } =
+fold Fold{ Fold.initial, Fold.step, Fold.extract } =
     NonemptyFold{ initial = step initial, step, extract }
 
 {-| Turn an effectful fold into a pure fold that requires at least
