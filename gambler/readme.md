@@ -187,17 +187,22 @@ The example from the previous section can be run as follows:
 ```
 
 
-## Related packages
+## Authors
 
-This `gambler` package is mostly a copy of [foldl], with some features removed
-to minimize its dependency set. What remains in `gambler` is essentially the
-same as what can be found in `foldl` version `1.4.13`, subject only to
-reorganization, renaming, and minor modifications.
+This package began as mostly a copy of [foldl], with some features removed to
+minimize its dependency set. What remained in `gambler-0.0.1` was essentially
+the same as what could be found in `foldl-1.4.13`, subject only to
+reorganization, renaming, and minor modifications. The `Fold`, `EffectfulFold`,
+and `NonemptyFold` types are the work of Gabriella Gonzalez.
 
-  [foldl]: https://hackage.haskell.org/package/foldl
+`ShortcutFold` and `ShortcutNonemptyFold` were added by Mission Valley Software
+in `gambler-0.0.2`.
 
 
 ## Future plans
 
 Once the `Foldable1` class has been added to `base`, the type of
 `Fold.Nonempty.run` may be generalized to accommodate it.
+
+
+  [foldl]: https://hackage.haskell.org/package/foldl
