@@ -63,9 +63,13 @@ library
 
         Fold.Shortcut.Run
         Fold.Shortcut.Type
+        Fold.Shortcut.Examples
+        Fold.Shortcut.Conversion
 
         Fold.ShortcutNonempty.Run
         Fold.ShortcutNonempty.Type
+        Fold.ShortcutNonempty.Examples
+        Fold.ShortcutNonempty.Conversion
 
     other-modules:
         Strict

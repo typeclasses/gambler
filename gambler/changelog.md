@@ -6,11 +6,13 @@ Added modules:
 - `Fold.Shortcut.Type`
 - `Fold.Shortcut.Run`
 - `Fold.Shortcut.Examples`
+- `Fold.Shortcut.Conversion`
 
 - `Fold.ShortcutNonempty`
 - `Fold.ShortcutNonempty.Type`
 - `Fold.ShortcutNonempty.Run`
 - `Fold.ShortcutNonempty.Examples`
+- `Fold.ShortcutNonempty.Conversion`
 
 Additions to existing modules:
 
