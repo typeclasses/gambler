@@ -70,7 +70,7 @@ monoid = Convert.fold Pure.monoid
 
 {-| 'True' if the input contains no inputs -}
 null :: Monad m => EffectfulFold m a Bool
-null = Convert.fold Pure.null
+null = Convert.shortcutFold Shortcut.null
 
 {-| The number of inputs -}
 length :: Monad m => EffectfulFold m a Natural

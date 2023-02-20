@@ -4,7 +4,7 @@ module Fold.ShortcutNonempty.Examples.Boring
     {- * Search -} element, notElement, find, lookup,
     {- * Arithmetic folds -} sum, product, mean, variance, standardDeviation,
     {- * Working with indices -} index, findIndex, elementIndex,
-    {- * Counting inputs -} null, length,
+    {- * Counting inputs -} length,
     {- * Boolean folds -} and, or, all, any,
     {- * Min/max -} maximum, minimum, maximumBy, minimumBy,
     {- * First/last -} last,
@@ -16,10 +16,10 @@ module Fold.ShortcutNonempty.Examples.Boring
 import Data.Maybe (Maybe)
 import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold)
 import Data.Semigroup (Semigroup)
-import Data.Ord (Ord, Ordering (GT))
+import Data.Ord (Ord, Ordering)
 import Data.Monoid (Monoid)
 import Prelude (Floating, Fractional, Num)
-import Data.Bool (Bool (True))
+import Data.Bool (Bool)
 import Data.Eq (Eq)
 import Numeric.Natural (Natural)
 
@@ -31,10 +31,6 @@ import qualified Fold.ShortcutNonempty.Conversion as Convert
 {-| Start with 'mempty', append each input on the right with ('<>') -}
 monoid :: Monoid a => ShortcutNonemptyFold a a
 monoid = Convert.fold Pure.monoid
-
-{-| 'True' if the input contains no inputs -}
-null :: ShortcutNonemptyFold a Bool
-null = Convert.fold Pure.null
 
 {-| The number of inputs -}
 length :: ShortcutNonemptyFold a Natural

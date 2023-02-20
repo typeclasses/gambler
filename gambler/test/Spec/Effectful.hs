@@ -13,6 +13,7 @@ import Data.Functor.Identity (Identity (Identity), runIdentity)
 import Data.Monoid (mempty)
 import Data.Semigroup (Sum (Sum), (<>))
 import Prelude ((>), String, Integer, (+), (*))
+import Data.Bool (Bool (..))
 
 import qualified Data.List as List
 
@@ -83,3 +84,11 @@ spec = describe "EffectfulFold" do
             shouldBe @(Identity Integer)
                 (run (prefilter (Identity . p) f) xs)
                 (run f (List.filter p xs))
+
+    describe "null" do
+        it "True for []" do
+            run null ([] :: [Integer]) `shouldBe` Identity True
+        it "False for anything else" do
+            run null ([1] :: [Integer]) `shouldBe` Identity False
+            run null ([1,2] :: [Integer]) `shouldBe` Identity False
+            run null ([1,2,3] :: [Integer]) `shouldBe` Identity False

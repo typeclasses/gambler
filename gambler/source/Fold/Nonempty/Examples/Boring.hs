@@ -3,7 +3,7 @@ module Fold.Nonempty.Examples.Boring
   (
     {- * Endpoints -} first,
     {- * Monoid -} monoid,
-    {- * Length -} null, length,
+    {- * Length -} length,
     {- * Boolean -} and, or, all, any,
     {- * Numeric -} sum, product, mean, variance, standardDeviation,
     {- * Search -} element, notElement, find, lookup,
@@ -32,10 +32,6 @@ first = Convert.shortcutNonemptyFold ShortcutNonempty.first
 {-| Start with 'mempty', append each input on the right with ('<>') -}
 monoid :: Monoid a => NonemptyFold a a
 monoid = Convert.fold Pure.monoid
-
-{-| 'True' if the input contains no inputs -}
-null :: NonemptyFold a Bool
-null = Convert.fold Pure.null
 
 {-| The number of inputs -}
 length :: NonemptyFold a Natural

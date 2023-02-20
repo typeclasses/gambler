@@ -12,6 +12,7 @@ import Data.Maybe (Maybe (Just, Nothing))
 import Data.Monoid (mempty)
 import Data.Semigroup (Sum (Sum))
 import Prelude ((>), String, Integer, (+), (*))
+import Data.Bool (Bool (..))
 
 import qualified Data.Foldable as Foldable
 import qualified Data.List as List
@@ -128,3 +129,11 @@ spec = describe "Fold" do
                 run last ([5, 4, 3] :: [Integer]) `shouldBe` Just 3
             it "returns Nothing with no input" do
                 run last ([] :: [Integer]) `shouldBe` Nothing
+
+    describe "null" do
+        it "True for []" do
+            run null ([] :: [Integer]) `shouldBe` True
+        it "False for anything else" do
+            run null ([1] :: [Integer]) `shouldBe` False
+            run null ([1,2] :: [Integer]) `shouldBe` False
+            run null ([1,2,3] :: [Integer]) `shouldBe` False

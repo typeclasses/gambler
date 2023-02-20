@@ -1,6 +1,7 @@
 -- | Folds of other types trivially lifted into 'Fold'
 module Fold.Pure.Examples.Boring
   (
+    {- * Length -} null,
     {- * General -} magma, semigroup,
     {- * Endpoints -} first, last,
     {- * Extrema -} maximum, minimum, maximumBy, minimumBy,
@@ -22,6 +23,10 @@ import qualified Fold.Pure.Conversion as Convert
 import qualified Fold.Nonempty.Examples.Interesting as Nonempty
 import qualified Fold.ShortcutNonempty.Examples.Interesting as ShortcutNonempty
 import qualified Fold.Shortcut.Examples.Interesting as Shortcut
+
+{-| 'True' if the input contains no inputs -}
+null :: Fold a Bool
+null = Convert.shortcutFold Shortcut.null
 
 {-| Start with the first input, append each new input on the right
 with the given function -}

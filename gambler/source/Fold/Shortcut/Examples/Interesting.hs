@@ -1,5 +1,6 @@
 module Fold.Shortcut.Examples.Interesting
   (
+    {- * Length -} null,
     {- * Boolean -} and, or, all, any,
     {- * Search -} element, notElement, find, lookup,
     {- * Index -} index, findIndex, elementIndex,
@@ -19,6 +20,15 @@ import Fold.Shortcut.Conversion (fold)
 import Fold.Shortcut.Utilities (demotivate)
 
 import qualified Fold.Pure.Examples.Interesting as Fold
+
+{-| 'True' if the input contains no inputs -}
+null :: ShortcutFold a Bool
+null = ShortcutFold
+  { initial = Alive Tenacious ()
+  , step = \() _ -> Dead ()
+  , extractLive = \() -> True
+  , extractDead = \() -> False
+  }
 
 {-| 'True' if all inputs are 'True' -}
 and :: ShortcutFold Bool Bool

@@ -2,7 +2,7 @@
 module Fold.Shortcut.Examples.Boring
   (
     {- * Arithmetic folds -} sum, product, mean, variance, standardDeviation,
-    {- * Counting inputs -} null, length,
+    {- * Counting inputs -} length,
     {- * Min/max -} maximum, minimum, maximumBy, minimumBy,
     {- * First/last -} first, last,
     {- * General folds -} magma, semigroup, monoid,
@@ -12,11 +12,10 @@ module Fold.Shortcut.Examples.Boring
 
 import Data.Maybe (Maybe)
 import Fold.Shortcut.Type (ShortcutFold)
-import Data.Semigroup (Semigroup, (<>))
+import Data.Semigroup (Semigroup)
 import Data.Ord (Ord, Ordering (GT), max, min)
-import Data.Monoid (Monoid, mempty)
-import Prelude (Floating, Fractional, Num, sqrt, (*), (+), (-), (/))
-import Data.Bool (Bool (False, True))
+import Data.Monoid (Monoid)
+import Prelude (Floating, Fractional, Num)
 import Numeric.Natural (Natural)
 
 import qualified Fold.ShortcutNonempty.Examples.Interesting as ShortcutNonempty
@@ -68,10 +67,6 @@ reverseList = Convert.fold Fold.reverseList
 {-| Start with 'mempty', append each input on the right with ('<>') -}
 monoid :: Monoid a => ShortcutFold a a
 monoid = Convert.fold Fold.monoid
-
-{-| 'True' if the input contains no inputs -}
-null :: ShortcutFold a Bool
-null = Convert.fold Fold.null
 
 {-| The number of inputs -}
 length :: ShortcutFold a Natural

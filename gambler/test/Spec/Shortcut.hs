@@ -4,12 +4,11 @@ import Fold.Shortcut
 
 import Test.Hspec
 
-import Control.Applicative (liftA2, pure)
+import Control.Applicative (pure)
 import Prelude (Integer, undefined)
 import Data.Maybe (Maybe (Just, Nothing))
-import Data.Char (Char)
-import Numeric.Natural (Natural)
 import Data.List ((++))
+import Data.Bool (Bool (..))
 
 import qualified Data.Char as Char
 
@@ -22,8 +21,9 @@ spec = describe "ShortcutFold" do
                   b <- find Char.isLetter
                   c <- elementIndex 'x'
                   d <- elementIndex 'y'
-                  pure (a, b, c, d)
-        run x ("1234xyz" ++ undefined) `shouldBe` (6, Just 'x', Just 4, Just 5)
+                  e <- last
+                  pure (a, b, c, d, e)
+        run x ("1234xyz" ++ undefined) `shouldBe` (6, Just 'x', Just 4, Just 5, Just 'y')
 
     describe "endpoint functions" do
         describe "first" do
@@ -33,8 +33,11 @@ spec = describe "ShortcutFold" do
                 run first ([] :: [Integer]) `shouldBe` Nothing
             it "is lazy" do
                 run first (5 : undefined :: [Integer]) `shouldBe` Just 5
-        -- describe "last" do
-        --     it "gets the last item" do
-        --         run last ([5, 4, 3] :: [Integer]) `shouldBe` Just 3
-        --     it "returns Nothing with no input" do
-        --         run last ([] :: [Integer]) `shouldBe` Nothing
+
+    describe "null" do
+        it "True for []" do
+            run null ([] :: [Integer]) `shouldBe` True
+        it "False for anything else" do
+            run null ([1] :: [Integer]) `shouldBe` False
+            run null ([1,2] :: [Integer]) `shouldBe` False
+            run null ([1,2,3] :: [Integer]) `shouldBe` False

@@ -1,7 +1,7 @@
 module Fold.Pure.Examples.Interesting
   (
     {- * Monoid -} monoid,
-    {- * Length -} null, length,
+    {- * Length -} length,
     {- * Numeric -} sum, product, mean, variance, standardDeviation,
     {- * List -} list, reverseList,
   )
@@ -9,7 +9,6 @@ module Fold.Pure.Examples.Interesting
 
 import Fold.Pure.Type
 
-import Data.Bool (Bool (False, True))
 import Data.Function (id, ($), (.))
 import Data.Functor ((<$>))
 import Data.Monoid (Monoid, mempty)
@@ -22,10 +21,6 @@ import qualified Strict
 {-| Start with 'mempty', append each input on the right with ('<>') -}
 monoid :: Monoid a => Fold a a
 monoid = Fold{ initial = mempty, step = (<>), extract = id }
-
-{-| 'True' if the input contains no inputs -}
-null :: Fold a Bool
-null = Fold{ initial = True, step = \_ _ -> False, extract = id }
 
 {-| The number of inputs -}
 length :: Fold a Natural

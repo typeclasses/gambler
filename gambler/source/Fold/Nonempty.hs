@@ -8,7 +8,7 @@ module Fold.Nonempty
     {- ** General -} magma, semigroup, monoid,
     {- ** Endpoints -} first, last,
     {- ** Extrema -} maximum, minimum, maximumBy, minimumBy,
-    {- ** Length -} null, length,
+    {- ** Length -} length,
     {- ** Boolean -} and, or, all, any,
     {- ** Numeric -} sum, product, mean, variance, standardDeviation,
     {- ** Search -} element, notElement, find, lookup,
