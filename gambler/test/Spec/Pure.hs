@@ -12,6 +12,7 @@ import Data.Maybe (Maybe (Just, Nothing))
 import Data.Monoid (mempty)
 import Data.Semigroup (Sum (Sum))
 import Prelude ((>), String, Integer, (+), (*))
+import Data.Bool (Bool (..))
 
 import qualified Data.Foldable as Foldable
 import qualified Data.List as List
@@ -116,3 +117,23 @@ spec = describe "Fold" do
         describe "reverseList" do
             it "gets all inputs in reverse" do
                 run reverseList xs `shouldBe` [4, 3, 2, 1]
+
+    describe "endpoint functions" do
+        describe "first" do
+            it "gets the first item" do
+                run first ([5, 4, 3] :: [Integer]) `shouldBe` Just 5
+            it "returns Nothing with no input" do
+                run first ([] :: [Integer]) `shouldBe` Nothing
+        describe "last" do
+            it "gets the last item" do
+                run last ([5, 4, 3] :: [Integer]) `shouldBe` Just 3
+            it "returns Nothing with no input" do
+                run last ([] :: [Integer]) `shouldBe` Nothing
+
+    describe "null" do
+        it "True for []" do
+            run null ([] :: [Integer]) `shouldBe` True
+        it "False for anything else" do
+            run null ([1] :: [Integer]) `shouldBe` False
+            run null ([1,2] :: [Integer]) `shouldBe` False
+            run null ([1,2,3] :: [Integer]) `shouldBe` False

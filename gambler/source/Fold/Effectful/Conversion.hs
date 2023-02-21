@@ -6,6 +6,8 @@ import Fold.Effectful.Type
 import Control.Monad (Monad)
 import Data.Maybe (Maybe)
 import Fold.Nonempty.Type (NonemptyFold)
+import Fold.Shortcut.Type (ShortcutFold)
+import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold)
 
 import qualified Control.Applicative as Applicative
 import qualified Fold.Pure.Conversion as Pure
@@ -23,3 +25,9 @@ fold Pure.Fold{ Pure.initial, Pure.step, Pure.extract } = EffectfulFold
 returns 'Data.Maybe.Nothing' when there are no inputs -}
 nonemptyFold :: Monad m => NonemptyFold a b -> EffectfulFold m a (Maybe b)
 nonemptyFold x = fold (Pure.nonemptyFold x)
+
+shortcutFold :: Monad m =>  ShortcutFold a b -> EffectfulFold m a b
+shortcutFold x = fold (Pure.shortcutFold x)
+
+shortcutNonemptyFold :: Monad m => ShortcutNonemptyFold a b -> EffectfulFold m a (Maybe b)
+shortcutNonemptyFold x = fold (Pure.shortcutNonemptyFold x)

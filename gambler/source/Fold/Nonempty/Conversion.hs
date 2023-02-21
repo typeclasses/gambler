@@ -5,11 +5,14 @@ import Fold.Nonempty.Type
 
 import Fold.Effectful.Type (EffectfulFold)
 import Fold.Pure.Type (Fold (Fold))
+import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold (ShortcutNonemptyFold))
+import Fold.Shortcut.Type (ShortcutFold)
+import Strict (Vitality (Dead, Alive))
+import Data.Functor.Identity (Identity)
 
 import qualified Fold.Pure.Type as Fold
 import qualified Fold.Pure.Conversion as Fold.Conversion
-
-import Data.Functor.Identity (Identity)
+import qualified Fold.ShortcutNonempty.Type as ShortcutNonempty
 
 {-| Turn a regular fold that allows empty input into a fold that
 requires at least one input -}
@@ -21,3 +24,17 @@ fold Fold{ Fold.initial, Fold.step, Fold.extract } =
 one input -}
 effectfulFold :: EffectfulFold Identity a b -> NonemptyFold a b
 effectfulFold x = fold (Fold.Conversion.effectfulFold x)
+
+shortcutFold :: ShortcutFold a b -> NonemptyFold a b
+shortcutFold x = fold (Fold.Conversion.shortcutFold x)
+
+shortcutNonemptyFold :: ShortcutNonemptyFold a b -> NonemptyFold a b
+shortcutNonemptyFold ShortcutNonemptyFold{ ShortcutNonempty.step,
+        ShortcutNonempty.initial, ShortcutNonempty.extractDead, ShortcutNonempty.extractLive } =
+    NonemptyFold
+      { initial = initial
+      , step = \s -> case s of { Dead _ -> \_ -> s; Alive _ x -> step x }
+      , extract = \s -> case s of
+            Dead x -> extractDead x
+            Alive _ x -> extractLive x
+      }

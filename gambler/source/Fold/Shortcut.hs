@@ -1,11 +1,11 @@
-module Fold.Effectful
+module Fold.Shortcut
   (
-    {- * Type -} EffectfulFold (..),
+    {- * Type -} ShortcutFold (..),
 
     {- * Run -} run,
 
     {- * Examples -}
-    {- ** General -} effect, effectMonoid, magma, semigroup, monoid,
+    {- ** General -} magma, semigroup, monoid,
     {- ** Endpoints -} first, last,
     {- ** Extrema -} maximum, minimum, maximumBy, minimumBy,
     {- ** Length -} null, length,
@@ -15,14 +15,14 @@ module Fold.Effectful
     {- ** Index -} index, findIndex, elementIndex,
     {- ** List -} list, reverseList,
 
-    {- * Conversion -} fold, nonemptyFold, shortcutFold, shortcutNonemptyFold,
+    {- * Conversion -} fold, effectfulFold, nonemptyFold, shortcutNonemptyFold,
 
-    {- * Utilities -} hoist, duplicate, premap, prefilter, drop,
+    {- * Utilities -} demotivate,
   )
   where
 
-import Fold.Effectful.Conversion
-import Fold.Effectful.Examples
-import Fold.Effectful.Run
-import Fold.Effectful.Type
-import Fold.Effectful.Utilities
+import Fold.Shortcut.Conversion
+import Fold.Shortcut.Examples
+import Fold.Shortcut.Run
+import Fold.Shortcut.Type
+import Fold.Shortcut.Utilities

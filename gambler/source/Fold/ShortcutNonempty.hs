@@ -1,6 +1,6 @@
-module Fold.Nonempty
+module Fold.ShortcutNonempty
   (
-    {- * Type -} NonemptyFold (..),
+    {- * Type -} ShortcutNonemptyFold (..),
 
     {- * Run -} run,
 
@@ -15,14 +15,14 @@ module Fold.Nonempty
     {- ** Index -} index, findIndex, elementIndex,
     {- ** List -} list, reverseList,
 
-    {- * Conversion -} fold, effectfulFold, shortcutFold, shortcutNonemptyFold,
+    {- * Conversion -} fold, effectfulFold, nonemptyFold, shortcutFold,
 
-    {- * Utilities -} duplicate, premap, nest,
+    {- * Utilities -} demotivate,
   )
   where
 
-import Fold.Nonempty.Conversion
-import Fold.Nonempty.Examples
-import Fold.Nonempty.Run
-import Fold.Nonempty.Type
-import Fold.Nonempty.Utilities
+import Fold.ShortcutNonempty.Conversion
+import Fold.ShortcutNonempty.Examples
+import Fold.ShortcutNonempty.Run
+import Fold.ShortcutNonempty.Type
+import Fold.ShortcutNonempty.Utilities

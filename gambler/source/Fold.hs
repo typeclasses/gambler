@@ -1,7 +1,8 @@
 module Fold
   (
     {- * Fold types -} Fold (Fold), NonemptyFold (NonemptyFold),
-            EffectfulFold (EffectfulFold),
+            EffectfulFold (EffectfulFold), ShortcutFold (ShortcutFold),
+            ShortcutNonemptyFold (ShortcutNonemptyFold), Vitality (..), Will (..),
     {- * Running -} runFold, runNonemptyFold, runEffectfulFold,
     {- * Search -} element, notElement, find, lookup,
     {- * Arithmetic folds -} sum, product, mean, variance, standardDeviation,
@@ -22,10 +23,14 @@ module Fold
 import Fold.Effectful.Type
 import Fold.Nonempty.Type
 import Fold.Pure.Type
+import Fold.Shortcut.Type
+import Fold.ShortcutNonempty.Type
 
-import Fold.Effectful.Examples
-import Fold.Nonempty.Examples hiding (list, reverseList)
-import Fold.Pure.Examples
+import Fold.Effectful.Examples.Interesting
+import Fold.Nonempty.Examples.Interesting hiding (list, reverseList)
+import Fold.Pure.Examples.Interesting
+import Fold.Shortcut.Examples.Interesting
+import Fold.ShortcutNonempty.Examples.Interesting
 
 import Fold.Effectful.Utilities
 

@@ -1,6 +1,6 @@
-module Fold.Effectful.Examples
+module Fold.Shortcut.Examples
   (
-    {- * General -} effect, effectMonoid, magma, semigroup, monoid,
+    {- * General -} magma, semigroup, monoid,
     {- * Endpoints -} first, last,
     {- * Extrema -} maximum, minimum, maximumBy, minimumBy,
     {- * Length -} null, length,
@@ -12,5 +12,5 @@ module Fold.Effectful.Examples
   )
   where
 
-import Fold.Effectful.Examples.Interesting
-import Fold.Effectful.Examples.Boring
+import Fold.Shortcut.Examples.Interesting
+import Fold.Shortcut.Examples.Boring
