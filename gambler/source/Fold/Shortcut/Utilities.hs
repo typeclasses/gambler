@@ -6,6 +6,7 @@ import Strict (willSave)
 
 import qualified Strict
 
+{-| Causes a shortcut fold to stop once it becomes ambivalent -}
 demotivate :: ShortcutFold a b -> ShortcutFold a b
 demotivate ShortcutFold{ initial, step, extractDead, extractLive } =
   ShortcutFold
