@@ -55,11 +55,11 @@ any predicate = Convert.shortcutFold (Shortcut.any predicate)
 
 {-| Adds the inputs (ambivalent) -}
 sum :: Num a => ShortcutNonemptyFold a a
-sum = Convert.fold Pure.sum
+sum = Convert.nonemptyFold Nonempty.sum
 
 {-| Multiplies the inputs (ambivalent) -}
 product :: Num a => ShortcutNonemptyFold a a
-product = Convert.fold Pure.product
+product = Convert.nonemptyFold Nonempty.product
 
 {-| Numerically stable arithmetic mean of the inputs (ambivalent) -}
 mean :: Fractional a => ShortcutNonemptyFold a a

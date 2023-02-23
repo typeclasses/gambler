@@ -1,4 +1,8 @@
-module Fold.ShortcutNonempty.Examples.Interesting where
+module Fold.ShortcutNonempty.Examples.Interesting
+  (
+    {- * First/last -} first,
+  )
+  where
 
 import Fold.ShortcutNonempty.Type
 

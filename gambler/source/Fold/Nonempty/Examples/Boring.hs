@@ -5,7 +5,7 @@ module Fold.Nonempty.Examples.Boring
     {- * Monoid -} monoid,
     {- * Length -} length,
     {- * Boolean -} and, or, all, any,
-    {- * Numeric -} sum, product, mean, variance, standardDeviation,
+    {- * Numeric -} mean, variance, standardDeviation,
     {- * Search -} element, notElement, find, lookup,
     {- * Index -} index, findIndex, elementIndex,
     {- * List -} list, reverseList,
@@ -18,7 +18,7 @@ import Data.Maybe (Maybe)
 import Data.Monoid (Monoid)
 import Fold.Nonempty.Type (NonemptyFold)
 import Numeric.Natural (Natural)
-import Prelude (Floating, Fractional, Num)
+import Prelude (Floating, Fractional)
 
 import qualified Fold.Nonempty.Conversion as Convert
 import qualified Fold.Pure.Examples.Interesting as Pure
@@ -52,14 +52,6 @@ all predicate = Convert.shortcutFold (Shortcut.all predicate)
 {-| 'True' if any input satisfies the predicate -}
 any :: (a -> Bool) -> NonemptyFold a Bool
 any predicate = Convert.shortcutFold (Shortcut.any predicate)
-
-{-| Adds the inputs -}
-sum :: Num a => NonemptyFold a a
-sum = Convert.fold Pure.sum
-
-{-| Multiplies the inputs -}
-product :: Num a => NonemptyFold a a
-product = Convert.fold Pure.product
 
 {-| Numerically stable arithmetic mean of the inputs -}
 mean :: Fractional a => NonemptyFold a a

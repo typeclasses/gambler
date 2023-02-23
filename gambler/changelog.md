@@ -1,3 +1,16 @@
+## 0.2.0.0 (2023-02-22)
+
+The "Examples" modules are no longer divided into "Interesting" and "Boring"
+modules in the public API, because this leads to too many breaking releases.
+
+`NonemptyFold` and `ShortcutNonemptyFold` now have their own `sum` and `product`
+definitions instead of being lifted variants of the `Fold` and `ShortcutFold`
+definitions. This makes it possible to use them with numeric types that do not
+include additive or multiplicative identity values. For example, we now have a
+test case which takes the sum over a non-empty list of positive integers. Since
+a "positive integer" type does not include zero, previously this would result in
+arithmetic underflow.
+
 ## 0.1.0.0 (2023-02-20)
 
 Adds `ShortcutFold` and `ShortcutNonemptyFold`.

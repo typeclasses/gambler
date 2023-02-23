@@ -27,7 +27,7 @@ import Fold.Shortcut.Type
 import Fold.ShortcutNonempty.Type
 
 import Fold.Effectful.Examples.Interesting
-import Fold.Nonempty.Examples.Interesting hiding (list, reverseList)
+import Fold.Nonempty.Examples.Interesting hiding (list, reverseList, sum, product)
 import Fold.Pure.Examples.Interesting
 import Fold.Shortcut.Examples.Interesting
 import Fold.ShortcutNonempty.Examples.Interesting

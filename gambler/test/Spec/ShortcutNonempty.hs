@@ -4,12 +4,13 @@ import Fold.ShortcutNonempty
 
 import Test.Hspec
 
-import Control.Applicative (pure, (<$>), (<*>))
-import Prelude (Integer, undefined)
-import Data.List.NonEmpty (NonEmpty ((:|)))
-import Data.Maybe (Maybe (Just))
+import Control.Applicative (pure, (<$>), (<*>), liftA2)
 import Data.Bool (Bool (..))
 import Data.List ((++))
+import Data.List.NonEmpty (NonEmpty ((:|)))
+import Data.Maybe (Maybe (Just))
+import Positive (Positive)
+import Prelude (Integer, undefined)
 
 import qualified Data.Char as Char
 
@@ -57,3 +58,9 @@ spec = describe "ShortcutNonemptyFold" do
             run or [True,False] `shouldBe` True
         it "is lazy" do
             run or (True :| undefined) `shouldBe` True
+
+    describe "sum/product" do
+        it "sum works with Positive" do
+            run (liftA2 (,) (index 2) sum) [1,2,5,7] `shouldBe` (Just 5, 8 :: Positive)
+        it "product works with Positive" do
+            run (liftA2 (,) (index 2) product) [1,2,5,3] `shouldBe` (Just 5, 10 :: Positive)

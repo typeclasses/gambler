@@ -5,6 +5,7 @@ import Fold.Nonempty
 import Test.Hspec
 
 import Data.List.NonEmpty (NonEmpty ((:|)))
+import Positive (Positive)
 import Prelude (String, Integer)
 
 spec :: SpecWith ()
@@ -34,3 +35,9 @@ spec = describe "NonemptyFold" do
         describe "reverseList" do
             it "gets all inputs in reverse" do
                 run reverseList xs `shouldBe` [4, 3, 2, 1]
+
+    describe "sum/product" do
+        it "sum works with Positive" do
+            run sum [1,2,5] `shouldBe` (8 :: Positive)
+        it "product works with Positive" do
+            run product [1,2,5] `shouldBe` (10 :: Positive)

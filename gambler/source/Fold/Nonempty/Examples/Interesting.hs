@@ -3,6 +3,7 @@ module Fold.Nonempty.Examples.Interesting
     {- * General -} magma, semigroup,
     {- * Endpoints -} last,
     {- * Extrema -} maximum, minimum, maximumBy, minimumBy,
+    {- * Numeric -} sum, product,
     {- * List -} list, reverseList,
   )
   where
@@ -13,6 +14,7 @@ import Data.Function (id, const, flip, (.))
 import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.Ord (Ord, Ordering (GT), max, min)
 import Data.Semigroup (Semigroup, (<>))
+import Prelude (Num, (+), (*))
 
 import qualified Strict
 
@@ -44,6 +46,14 @@ minimum = magma min
 {-| The least input with respect to the given comparison function -}
 minimumBy :: (a -> a -> Ordering) -> NonemptyFold a a
 minimumBy cmp = magma (\x y -> case cmp x y of { GT -> y; _ -> x })
+
+{-| Adds the inputs -}
+sum :: Num a => NonemptyFold a a
+sum = magma (+)
+
+{-| Multiplies the inputs -}
+product :: Num a => NonemptyFold a a
+product = magma (*)
 
 {-| All the inputs -}
 list :: NonemptyFold a (NonEmpty a)
