@@ -44,25 +44,21 @@ nonemptyFold
 
 shortcutFold :: ShortcutFold a b -> Fold a b
 shortcutFold ShortcutFold{
-        Shortcut.initial, Shortcut.step, Shortcut.extractLive, Shortcut.extractDead } =
+        Shortcut.initial, Shortcut.step, Shortcut.extract } =
     Fold
       { initial = initial
       , step = \s -> case s of { Dead _ -> \_ -> s; Alive _ x -> step x }
-      , extract = \s -> case s of
-            Dead    x -> extractDead x
-            Alive _ x -> extractLive x
+      , extract
       }
 
 shortcutNonemptyFold :: ShortcutNonemptyFold a b -> Fold a (Maybe b)
 shortcutNonemptyFold ShortcutNonemptyFold{ ShortcutNonempty.initial,
-        ShortcutNonempty.step, ShortcutNonempty.extractLive, ShortcutNonempty.extractDead } =
+        ShortcutNonempty.step, ShortcutNonempty.extract } =
     Fold
       { initial = Strict.Nothing
       , step = \xm a -> case xm of
             Strict.Nothing -> Strict.Just (initial a)
             Strict.Just (Alive _ x) -> Strict.Just (step x a)
             Strict.Just (Dead    _) -> xm
-      , extract = \xm -> Strict.lazy xm <&> \s -> case s of
-            Dead    x -> extractDead x
-            Alive _ x -> extractLive x
+      , extract = \xm -> Strict.lazy xm <&> extract
       }

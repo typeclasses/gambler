@@ -30,11 +30,9 @@ shortcutFold x = fold (Fold.Conversion.shortcutFold x)
 
 shortcutNonemptyFold :: ShortcutNonemptyFold a b -> NonemptyFold a b
 shortcutNonemptyFold ShortcutNonemptyFold{ ShortcutNonempty.step,
-        ShortcutNonempty.initial, ShortcutNonempty.extractDead, ShortcutNonempty.extractLive } =
+        ShortcutNonempty.initial, ShortcutNonempty.extract } =
     NonemptyFold
       { initial = initial
       , step = \s -> case s of { Dead _ -> \_ -> s; Alive _ x -> step x }
-      , extract = \s -> case s of
-            Dead x -> extractDead x
-            Alive _ x -> extractLive x
+      , extract = extract
       }

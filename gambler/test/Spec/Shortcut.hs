@@ -5,10 +5,12 @@ import Fold.Shortcut
 import Test.Hspec
 
 import Control.Applicative (pure, (<$>), (<*>))
-import Prelude (Integer, undefined)
-import Data.Maybe (Maybe (Just, Nothing))
-import Data.List ((++))
 import Data.Bool (Bool (..))
+import Data.Function ((&), flip)
+import Data.List ((++))
+import Data.Maybe (Maybe (Just, Nothing))
+import Data.Ord (Ord (..))
+import Prelude (Integer, undefined)
 
 import qualified Data.Char as Char
 
@@ -79,3 +81,18 @@ spec = describe "ShortcutFold" do
             run or [True,False] `shouldBe` True
         it "is lazy" do
             run or (True : undefined) `shouldBe` True
+
+    describe "duplicate" do
+        it "lets a fold run in two phases" do
+            let a, b, c :: [Integer]
+                a = [1,2,3]
+                b = [4,7,12,15]
+                c = a ++ b
+                f = find (>= 10)
+            (f & duplicate & flip run a & flip run b) `shouldBe` (run f c)
+        it "preserves laziness" do
+            let a, b :: [Integer]
+                a = 1 : 15 : undefined
+                b = undefined
+                f = find (>= 10)
+            (f & duplicate & flip run a & flip run b) `shouldBe` Just 15

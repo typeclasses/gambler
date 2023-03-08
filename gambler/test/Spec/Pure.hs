@@ -5,14 +5,14 @@ import Fold.Pure
 import Test.Hspec
 
 import Control.Applicative (pure, (<*>))
+import Data.Bool (Bool (..))
 import Data.Foldable (traverse_)
-import Data.Function (id, on, (.), (&))
+import Data.Function (id, on, (.), (&), flip)
 import Data.Functor ((<$>))
 import Data.Maybe (Maybe (Just, Nothing))
 import Data.Monoid (mempty)
 import Data.Semigroup (Sum (Sum))
 import Prelude ((>), String, Integer, (+), (*))
-import Data.Bool (Bool (..))
 
 import qualified Data.Foldable as Foldable
 import qualified Data.List as List
@@ -137,3 +137,11 @@ spec = describe "Fold" do
             run null ([1] :: [Integer]) `shouldBe` False
             run null ([1,2] :: [Integer]) `shouldBe` False
             run null ([1,2,3] :: [Integer]) `shouldBe` False
+
+    describe "duplicate" do
+        it "lets a fold run in two phases" do
+            let a, b, c :: [Integer]
+                a = [1..3]
+                b = [4..6]
+                c = [1..6]
+            (sum & duplicate & flip run a & flip run b) `shouldBe` (List.sum c)

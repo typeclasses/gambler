@@ -6,6 +6,7 @@ import Test.Hspec
 
 import Control.Applicative (pure, (<*>))
 import Control.Monad ((<=<))
+import Data.Bool (Bool (..))
 import Data.Foldable (traverse_)
 import Data.Function (id, on, (.), (&))
 import Data.Functor ((<$>))
@@ -13,7 +14,6 @@ import Data.Functor.Identity (Identity (Identity), runIdentity)
 import Data.Monoid (mempty)
 import Data.Semigroup (Sum (Sum), (<>))
 import Prelude ((>), String, Integer, (+), (*))
-import Data.Bool (Bool (..))
 
 import qualified Data.List as List
 

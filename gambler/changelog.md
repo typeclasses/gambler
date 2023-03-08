@@ -1,3 +1,47 @@
+## 0.4.0.0 (2023-03-08)
+
+Changed `ShortcutFold` from
+
+```haskell
+data ShortcutFold a b = forall x y. ShortcutFold
+    { initial     :: Vitality x y
+    , step        :: y -> a -> Vitality x y
+    , extractDead :: x -> b
+    , extractLive :: y -> b }
+```
+
+to
+
+```haskell
+data ShortcutFold a b = forall x y. ShortcutFold
+    { initial :: Vitality x y
+    , step    :: y -> a -> Vitality x y
+    , extract :: Vitality x y -> b }
+```
+
+Changed `ShortcutNonemptyFold` from
+
+```haskell
+data ShortcutNonemptyFold a b = forall x y. ShortcutNonemptyFold
+    { initial     :: a -> Vitality x y
+    , step        :: y -> a -> Vitality x y
+    , extractDead :: x -> b
+    , extractLive :: y -> b }
+```
+
+to
+
+```haskell
+data ShortcutNonemptyFold a b = forall x y. ShortcutNonemptyFold
+    { initial :: a -> Vitality x y
+    , step    :: y -> a -> Vitality x y
+    , extract :: Vitality x y -> b }
+```
+
+Added `Fold.Shortcut.duplicate` and `Fold.ShortcutNonempty.duplicate`.
+
+(The type changes make the `duplicate` functions possible.)
+
 ## 0.3.0.0 (2023-03-07)
 
 In the `Fold.ShortcutNonempty` module, the type of `list` and

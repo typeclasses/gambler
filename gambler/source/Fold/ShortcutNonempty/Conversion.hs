@@ -21,8 +21,7 @@ fold
     ShortcutNonemptyFold
       { initial = \a -> Alive Ambivalent (step initial a)
       , step = \x a -> Alive Ambivalent (step x a)
-      , extractDead = absurd
-      , extractLive = extract
+      , extract = \v -> case v of { Alive _ x -> extract x; Dead x -> absurd x }
       }
 
 effectfulFold :: EffectfulFold Identity a b -> ShortcutNonemptyFold a b
@@ -34,18 +33,16 @@ nonemptyFold
     ShortcutNonemptyFold
       { initial = \a -> Alive Ambivalent (initial a)
       , step = \x a -> Alive Ambivalent (step x a)
-      , extractDead = absurd
-      , extractLive = extract
+      , extract = \v -> case v of { Alive _ x -> extract x; Dead x -> absurd x }
       }
 
 shortcutFold :: ShortcutFold a b -> ShortcutNonemptyFold a b
 shortcutFold ShortcutFold{ Shortcut.initial, Shortcut.step,
-        Shortcut.extractDead, Shortcut.extractLive } =
+        Shortcut.extract } =
     ShortcutNonemptyFold
       { initial = case initial of
             Dead    x -> \_ -> Dead x
             Alive _ x -> step x
       , step = step
-      , extractDead = extractDead
-      , extractLive = extractLive
+      , extract
       }

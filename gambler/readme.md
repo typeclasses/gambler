@@ -176,11 +176,9 @@ have `ShortcutFold`.
 
 ```haskell
 data ShortcutFold a b = forall x y. ShortcutFold
-    { initial     :: Vitality x y
-    , step        :: y -> a -> Vitality x y
-    , extractDead :: x -> b
-    , extractLive :: y -> b
-    }
+    { initial :: Vitality x y
+    , step    :: y -> a -> Vitality x y
+    , extract :: Vitality x y -> b }
 ```
 
 ```haskell
@@ -220,11 +218,9 @@ The non-empty variant of `ShortcutFold` is `ShortcutNonemptyFold`.
 
 ```haskell
 data ShortcutNonemptyFold a b = forall x y. ShortcutNonemptyFold
-    { initial     :: a -> Vitality x y
-    , step        :: y -> a -> Vitality x y
-    , extractDead :: x -> b
-    , extractLive :: y -> b
-    }
+    { initial :: a -> Vitality x y
+    , step    :: y -> a -> Vitality x y
+    , extract :: Vitality x y -> b }
 ```
 
 Like `NonemptyFold`, the only thing we've changed here is to add an `a`

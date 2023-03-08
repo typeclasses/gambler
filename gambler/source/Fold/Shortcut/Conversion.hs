@@ -22,8 +22,7 @@ fold
     ShortcutFold
       { initial = Alive Ambivalent initial
       , step = \x a -> Alive Ambivalent (step x a)
-      , extractDead = absurd
-      , extractLive = extract
+      , extract = \v -> case v of { Alive _ x -> extract x; Dead x -> absurd x }
       }
 
 effectfulFold :: EffectfulFold Identity a b -> ShortcutFold a b
@@ -34,12 +33,13 @@ nonemptyFold x = fold (Fold.nonemptyFold x)
 
 shortcutNonemptyFold :: ShortcutNonemptyFold a b -> ShortcutFold a (Maybe b)
 shortcutNonemptyFold ShortcutNonemptyFold{ ShortcutNonempty.initial,
-        ShortcutNonempty.step, ShortcutNonempty.extractDead, ShortcutNonempty.extractLive } =
+        ShortcutNonempty.step, ShortcutNonempty.extract } =
     ShortcutFold
       { initial = Alive Tenacious Strict.Nothing
       , step = \xm a -> Strict.Just <$> case xm of
             Strict.Nothing -> initial a
             Strict.Just x -> step x a
-      , extractDead = \x -> Just (extractDead x)
-      , extractLive = \xm -> extractLive <$> Strict.lazy xm
+      , extract = \v -> case v of
+          Dead x -> Just (extract (Dead x))
+          Alive w xm -> (\x -> extract (Alive w x)) <$> Strict.lazy xm
       }

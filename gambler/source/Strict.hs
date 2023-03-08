@@ -8,10 +8,11 @@ module Strict
     {- * Either -} Either (..), hush,
     {- * Tuples -} Tuple2 (..), Tuple3 (..),
     {- * Shortcut -} Vitality (..), Will (..),
-        unlessDead, vitality2, willSave,
+        unlessDead, vitality2, willSave, isAlive, isDead,
   )
   where
 
+import Data.Bool (Bool (..))
 import Data.Functor (Functor (..))
 import Data.Monoid (Monoid, mempty)
 import Data.Semigroup (Semigroup, (<>))
@@ -76,3 +77,9 @@ vitality2 a@(Alive v1 _) b@(Alive v2 _) = Alive (v1 <> v2) (Strict.Tuple2 a b)
 vitality2 a@(Dead _)     b@(Alive v _)  = Alive v          (Strict.Tuple2 a b)
 vitality2 a@(Alive v _)  b@(Dead _)     = Alive v          (Strict.Tuple2 a b)
 vitality2 a@(Dead _)     b@(Dead _)     = Dead             (Strict.Tuple2 a b)
+
+isAlive :: Vitality a b -> Bool
+isAlive v = case v of { Alive _ _ -> True; Dead _ -> False }
+
+isDead :: Vitality a b -> Bool
+isDead v = case v of { Alive _ _ -> False; Dead _ -> True }

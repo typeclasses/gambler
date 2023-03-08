@@ -6,13 +6,16 @@ import Test.Hspec
 
 import Control.Applicative (pure, (<$>), (<*>), liftA2)
 import Data.Bool (Bool (..))
+import Data.Function ((&), flip)
 import Data.List ((++))
 import Data.List.NonEmpty (NonEmpty ((:|)))
-import Data.Maybe (Maybe (Just))
+import Data.Maybe (Maybe (..))
+import Data.Ord (Ord (..))
 import Positive (Positive)
 import Prelude (Integer, undefined)
 
 import qualified Data.Char as Char
+import qualified Fold.Shortcut as Empty
 
 spec :: SpecWith ()
 spec = describe "ShortcutNonemptyFold" do
@@ -64,3 +67,19 @@ spec = describe "ShortcutNonemptyFold" do
             run (liftA2 (,) (index 2) sum) [1,2,5,7] `shouldBe` (Just 5, 8 :: Positive)
         it "product works with Positive" do
             run (liftA2 (,) (index 2) product) [1,2,5,3] `shouldBe` (Just 5, 10 :: Positive)
+
+    describe "duplicate" do
+        it "lets a fold run in two phases" do
+            let a :: NonEmpty Integer
+                b :: [Integer]
+                a = [1,2,3]
+                b = [4,7,12,15]
+                f = find (>= 10)
+            (f & duplicate & flip run a & flip Empty.run b) `shouldBe` Just 12
+        it "preserves laziness" do
+            let a :: NonEmpty Integer
+                b :: [Integer]
+                a = 1 :| 15 : undefined
+                b = undefined
+                f = find (>= 10)
+            (f & duplicate & flip run a & flip Empty.run b) `shouldBe` Just 15
