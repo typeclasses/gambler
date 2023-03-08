@@ -7,7 +7,7 @@ module Strict
     {- * Maybe -} Maybe (..), lazy, strict,
     {- * Either -} Either (..), hush,
     {- * Tuples -} Tuple2 (..), Tuple3 (..),
-    {- * Shortcut -} Vitality (..), Will (..),
+    {- * Shortcut -} Vitality (..), Vitality', Will (..),
         unlessDead, vitality2, willSave, isAlive, isDead,
   )
   where
