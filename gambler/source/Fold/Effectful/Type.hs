@@ -9,7 +9,7 @@ import Prelude (($!))
 
 import qualified Strict
 
-{- | Processes inputs of type @a@ and results in an effectful value of type @m b@ -}
+{-| Processes inputs of type @a@ and results in an effectful value of type @m b@ -}
 data EffectfulFold m a b = forall x. EffectfulFold
     { initial :: m x
     , step :: x -> a -> m x

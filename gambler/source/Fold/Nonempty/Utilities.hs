@@ -9,7 +9,7 @@ import Fold.Pure.Type (Fold (Fold))
 import qualified Fold.Pure.Type as Pure
 
 {-| Allows to continue feeding a fold even after passing it to a function
-that closes it -}
+    that closes it -}
 duplicate :: NonemptyFold a b -> NonemptyFold a (Fold a b)
 duplicate NonemptyFold{ initial, step, extract } =
     NonemptyFold{ initial, step, extract = \x -> Fold

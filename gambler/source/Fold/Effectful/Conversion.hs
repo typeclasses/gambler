@@ -22,7 +22,7 @@ fold Pure.Fold{ Pure.initial, Pure.step, Pure.extract } = EffectfulFold
     }
 
 {-| Turn a nonempty fold that requires at least one input into a fold that
-returns 'Data.Maybe.Nothing' when there are no inputs -}
+    returns 'Data.Maybe.Nothing' when there are no inputs -}
 nonemptyFold :: Monad m => NonemptyFold a b -> EffectfulFold m a (Maybe b)
 nonemptyFold x = fold (Pure.nonemptyFold x)
 

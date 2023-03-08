@@ -11,7 +11,7 @@ import Prelude ((-))
 import qualified Strict
 
 {-| Allows to continue feeding a fold even after passing it to a function
-that closes it -}
+    that closes it -}
 duplicate :: Fold a b -> Fold a (Fold a b)
 duplicate Fold{ initial, step, extract } =
     Fold{ initial, step, extract = \x -> Fold{ initial = x, step, extract } }

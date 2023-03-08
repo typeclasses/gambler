@@ -30,7 +30,7 @@ effectfulFold
       }
 
 {-| Turn a fold that requires at least one input into a fold that returns
-'Data.Maybe.Nothing' when there are no inputs -}
+    'Data.Maybe.Nothing' when there are no inputs -}
 nonemptyFold :: NonemptyFold a b -> Fold a (Maybe b)
 nonemptyFold
   NonemptyFold{ Nonempty.initial, Nonempty.step, Nonempty.extract } =

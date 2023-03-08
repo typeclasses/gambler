@@ -73,7 +73,7 @@ effectfulToNonempty :: EffectfulFold Identity a b -> NonemptyFold a b
 effectfulToNonempty = ConvertTo.Nonempty.effectfulFold
 
 {-| Turn a fold that requires at least one input into a fold that returns
-'Data.Maybe.Nothing' when there are no inputs -}
+    'Data.Maybe.Nothing' when there are no inputs -}
 nonemptyToEmpty :: NonemptyFold a b -> Fold a (Maybe b)
 nonemptyToEmpty = ConvertTo.Pure.nonemptyFold
 
@@ -86,7 +86,7 @@ effectfulToPure :: EffectfulFold Identity a b -> Fold a b
 effectfulToPure = ConvertTo.Pure.effectfulFold
 
 {-| Turn a nonempty fold that requires at least one input into a fold that
-returns 'Data.Maybe.Nothing' when there are no inputs -}
+    returns 'Data.Maybe.Nothing' when there are no inputs -}
 nonemptyToEffectful :: Monad m =>
     NonemptyFold a b -> EffectfulFold m a (Maybe b)
 nonemptyToEffectful = ConvertTo.Effectful.nonemptyFold
@@ -100,16 +100,16 @@ reverseNonemptyList :: NonemptyFold a (NonEmpty a)
 reverseNonemptyList = Nonempty.reverseList
 
 {-| Allows to continue feeding a fold even after passing it to a function
-that closes it -}
+    that closes it -}
 duplicateFold :: Fold a b -> Fold a (Fold a b)
 duplicateFold = Pure.duplicate
 
 {-| Allows to continue feeding a fold even after passing it to a function
-that closes it -}
+    that closes it -}
 duplicateNonemptyFold :: NonemptyFold a b -> NonemptyFold a (Fold a b)
 duplicateNonemptyFold = Nonempty.duplicate
 
 {-| Allows to continue feeding an effectful fold even after passing it to a
-function that closes it -}
+    function that closes it -}
 duplicateEffectfulFold :: Applicative m => EffectfulFold m a b -> EffectfulFold m a (EffectfulFold m a b)
 duplicateEffectfulFold = Effectful.duplicate

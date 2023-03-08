@@ -7,7 +7,7 @@ import Data.Semigroup (Semigroup, (<>))
 
 import qualified Strict
 
-{- | Processes at least one input of type @a@ and results in a value of type @b@ -}
+{-| Processes at least one input of type @a@ and results in a value of type @b@ -}
 data NonemptyFold a b = forall x. NonemptyFold
     { initial :: a -> x
     , step :: x -> a -> x

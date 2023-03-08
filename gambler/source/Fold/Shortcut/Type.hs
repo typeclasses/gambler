@@ -14,8 +14,8 @@ import Data.Void (absurd)
 
 import qualified Strict
 
-{- | Processes inputs of type @a@, has the ability to halt midway
-     through the stream, and results in a value of type @b@ -}
+{-| Processes inputs of type @a@, has the ability to halt midway
+    through the stream, and results in a value of type @b@ -}
 data ShortcutFold a b = forall x y. ShortcutFold
     { initial :: Vitality x y
     , step :: y -> a -> Vitality x y

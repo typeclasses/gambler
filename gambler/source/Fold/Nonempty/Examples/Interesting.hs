@@ -19,7 +19,7 @@ import Prelude (Num, (+), (*))
 import qualified Strict
 
 {-| Start with the first input, append each new input on the right
-with the given function -}
+    with the given function -}
 magma :: (a -> a -> a) -> NonemptyFold a a
 magma step = NonemptyFold{ initial = id, step, extract = id }
 

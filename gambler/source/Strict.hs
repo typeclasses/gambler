@@ -1,7 +1,7 @@
 {-# LANGUAGE StrictData #-}
 
--- | Strict data types for use as internal
--- accumulators to achieve constant space usage.
+{-| Strict data types for use as internal
+    accumulators to achieve constant space usage -}
 module Strict
   (
     {- * Maybe -} Maybe (..), lazy, strict,

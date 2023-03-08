@@ -16,7 +16,7 @@ effect :: Monad m => (a -> m b) -> EffectfulFold m a ()
 effect f = effectMonoid (\a -> void (f a))
 
 {-| Performs an action for each input, monoidally combining the results
-from all the actions. -}
+    from all the actions -}
 effectMonoid ::  (Monoid w, Monad m) => (a -> m w) -> EffectfulFold m a w
 effectMonoid act = EffectfulFold
     { initial = Applicative.pure mempty

@@ -32,7 +32,7 @@ import qualified Fold.ShortcutNonempty.Examples.Interesting as ShortcutNonempty
 import qualified Fold.Effectful.Conversion as Convert
 
 {-| Start with the first input, append each new input on the right
-with the given function -}
+    with the given function -}
 magma :: (a -> a -> a) -> Monad m => EffectfulFold m a (Maybe a)
 magma step = Convert.nonemptyFold (Nonempty.magma step)
 

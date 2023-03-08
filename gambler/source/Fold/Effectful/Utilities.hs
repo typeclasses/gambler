@@ -10,7 +10,7 @@ import Numeric.Natural (Natural)
 import Prelude ((-))
 
 {-| Shift an effectful fold from one monad to another with a morphism such as
-@lift@ or @liftIO@ -}
+    @lift@ or @liftIO@ -}
 hoist :: (forall x . m x -> n x) -> EffectfulFold m a b -> EffectfulFold n a b
 hoist f EffectfulFold{ initial, step, extract } = EffectfulFold
     { initial = f initial
@@ -19,7 +19,7 @@ hoist f EffectfulFold{ initial, step, extract } = EffectfulFold
     }
 
 {-| Allows to continue feeding an effectful fold even after passing it to a
-function that closes it -}
+    function that closes it -}
 duplicate :: Applicative m => EffectfulFold m a b -> EffectfulFold m a (EffectfulFold m a b)
 duplicate EffectfulFold{ initial, step, extract } = EffectfulFold
     { initial

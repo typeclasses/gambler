@@ -22,7 +22,7 @@ demotivate ShortcutNonemptyFold{ initial, step, extract } =
     }
 
 {-| Allows to continue feeding a fold even after passing it to a function
-that closes it -}
+    that closes it -}
 duplicate :: ShortcutNonemptyFold a b -> ShortcutNonemptyFold a (ShortcutFold a b)
 duplicate ShortcutNonemptyFold{ initial, step, extract } =
   ShortcutNonemptyFold

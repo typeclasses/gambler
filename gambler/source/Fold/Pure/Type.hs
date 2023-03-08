@@ -7,7 +7,7 @@ import Data.Semigroup (Semigroup, (<>))
 
 import qualified Strict
 
-{- | Processes inputs of type @a@ and results in a value of type @b@ -}
+{-| Processes inputs of type @a@ and results in a value of type @b@ -}
 data Fold a b = forall x. Fold
     { initial :: x
     , step :: x -> a -> x

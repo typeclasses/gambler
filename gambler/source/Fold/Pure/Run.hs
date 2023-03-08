@@ -19,7 +19,7 @@ run Fold{ initial, step, extract } as = F.foldr cons extract as initial
     cons a k x = k $! step x a
 
 {-| Rather than only obtain a single final result, scanning gives a running
-total that shows the intermediate result at each step along the way
+    total that shows the intermediate result at each step along the way
 
 @
 scan 'Fold.Pure.Examples.monoid' ["a", "b", "c"] = ["","a","ab","abc"]
