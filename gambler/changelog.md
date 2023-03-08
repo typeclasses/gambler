@@ -1,3 +1,9 @@
+## 0.3.0.0 (2023-03-07)
+
+In the `Fold.ShortcutNonempty` module, the type of `list` and
+`reverseList` has changed from `ShortcutNonemptyFold a [a]`
+to `ShortcutNonemptyFold a (NonEmpty a)`.
+
 ## 0.2.0.0 (2023-02-22)
 
 The "Examples" modules are no longer divided into "Interesting" and "Boring"

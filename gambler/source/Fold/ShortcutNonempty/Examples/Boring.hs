@@ -13,19 +13,20 @@ module Fold.ShortcutNonempty.Examples.Boring
   )
   where
 
-import Data.Maybe (Maybe)
-import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold)
-import Data.Semigroup (Semigroup)
-import Data.Ord (Ord, Ordering)
-import Data.Monoid (Monoid)
-import Prelude (Floating, Fractional, Num)
 import Data.Bool (Bool)
 import Data.Eq (Eq)
+import Data.List.NonEmpty (NonEmpty)
+import Data.Maybe (Maybe)
+import Data.Monoid (Monoid)
+import Data.Ord (Ord, Ordering)
+import Data.Semigroup (Semigroup)
+import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold)
 import Numeric.Natural (Natural)
+import Prelude (Floating, Fractional, Num)
 
-import qualified Fold.Shortcut.Examples.Interesting as Shortcut
 import qualified Fold.Nonempty.Examples.Interesting as Nonempty
 import qualified Fold.Pure.Examples.Interesting as Pure
+import qualified Fold.Shortcut.Examples.Interesting as Shortcut
 import qualified Fold.ShortcutNonempty.Conversion as Convert
 
 {-| Start with 'mempty', append each input on the right
@@ -108,12 +109,12 @@ lookup :: Eq a => a -> ShortcutNonemptyFold (a, b) (Maybe b)
 lookup a = Convert.shortcutFold (Shortcut.lookup a)
 
 {-| All the inputs (ambivalent) -}
-list :: ShortcutNonemptyFold a [a]
-list = Convert.fold Pure.list
+list :: ShortcutNonemptyFold a (NonEmpty a)
+list = Convert.nonemptyFold Nonempty.list
 
 {-| All the inputs in reverse order (ambivalent) -}
-reverseList :: ShortcutNonemptyFold a [a]
-reverseList = Convert.fold Pure.reverseList
+reverseList :: ShortcutNonemptyFold a (NonEmpty a)
+reverseList = Convert.nonemptyFold Nonempty.reverseList
 
 {-| Start with the first input, append each new input on the right
     with the given function (ambivalent) -}
