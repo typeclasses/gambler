@@ -5,6 +5,7 @@ import Fold.Pure.Type
 import Control.Applicative (Applicative, liftA2, pure)
 import Data.Bool (Bool (False, True), (&&))
 import Data.Functor (fmap)
+import Fold.Pure.Run (run)
 import Numeric.Natural (Natural)
 import Prelude ((-))
 
@@ -51,3 +52,17 @@ drop n Fold{ initial, step, extract } = Fold
 nest :: Applicative f => Fold a b -> Fold (f a) (f b)
 nest Fold{ initial, step, extract } = Fold
     { initial = pure initial, step = liftA2 step, extract = fmap extract }
+
+{-| Convert a fold for a single item (@x@) into a fold for
+    lists of items (@xs@) -}
+repeatedly :: forall x xs result.
+    (forall b. Fold x b -> xs -> b)
+        -- ^ A witness to the fact that @xs@ is a list of @x@
+    -> Fold x result
+    -> Fold xs result
+repeatedly runXs foldX =
+  Fold
+    { initial = run (duplicate foldX) []
+    , step = \f -> runXs (duplicate f)
+    , extract = \f -> run f []
+    }

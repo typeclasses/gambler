@@ -1,7 +1,16 @@
 ## 0.4.1.0
 
 `Will (..)` and `Vitality (..)` are now re-exported from
-`Fold.Shortcut` and `Fold.ShortcutNonempty`.
+`Fold.Shortcut` and `Fold.ShortcutNonempty`; previously these
+were only available from `Fold.Shortcut.Type` and
+`Fold.ShortcutNonempty.Type`.
+
+A new utility `repeatedly` has been added to `Fold.Pure`,
+`Fold.Nonempty`, `Fold.Shortcut`, and `Fold.ShortcutNonempty`.
+
+New utilities `motivate`, `premap`, and `withVitality` and a new
+type alias `Vitality'` have been added to `Fold.Shortcut` and
+`Fold.ShortcutNonempty`.
 
 ## 0.4.0.0 (2023-03-08)
 

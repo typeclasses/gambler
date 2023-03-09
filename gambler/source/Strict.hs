@@ -8,8 +8,8 @@ module Strict
     {- * Either -} Either (..), hush,
     {- * Tuples -} Tuple2 (..), Tuple3 (..),
     {- * Shortcut -} Vitality (..), Vitality', Will (..),
-        unlessDead, vitality2, willSave, isAlive, isDead,
-        getVitality',
+        unlessDead, vitality2, willSave, willBoost,
+        isAlive, isDead, getVitality',
   )
   where
 
@@ -68,6 +68,12 @@ willSave :: Vitality a b -> Vitality (Either a b) b
 willSave v = case v of
     Dead x -> Dead (Left x)
     Alive Ambivalent x -> Dead (Right x)
+    Alive Tenacious x -> Alive Tenacious x
+
+willBoost :: Vitality a b -> Vitality a b
+willBoost v = case v of
+    Dead x -> Dead x
+    Alive Ambivalent x -> Alive Tenacious x
     Alive Tenacious x -> Alive Tenacious x
 
 type Vitality' a = Vitality a a

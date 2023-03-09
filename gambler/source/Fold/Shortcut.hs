@@ -1,6 +1,6 @@
 module Fold.Shortcut
   (
-    {- * Type -} ShortcutFold (..), Will (..), Vitality (..),
+    {- * Type -} ShortcutFold (..), Will (..), Vitality (..), Vitality',
 
     {- * Run -} run,
 
@@ -17,7 +17,7 @@ module Fold.Shortcut
 
     {- * Conversion -} fold, effectfulFold, nonemptyFold, shortcutNonemptyFold,
 
-    {- * Utilities -} demotivate, duplicate,
+    {- * Utilities -} motivate, demotivate, duplicate, repeatedly, premap, withVitality,
   )
   where
 

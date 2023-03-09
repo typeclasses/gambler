@@ -7,6 +7,9 @@ import Data.Functor (fmap)
 import Fold.Pure.Type (Fold (Fold))
 
 import qualified Fold.Pure.Type as Pure
+import qualified Fold.Pure.Utilities as Pure
+import qualified Fold.Pure.Run as Pure.Run
+import qualified Fold.Nonempty.Conversion as Nonempty
 
 {-| Allows to continue feeding a fold even after passing it to a function
     that closes it -}
@@ -25,3 +28,17 @@ premap f NonemptyFold{ initial, step, extract } =
 nest :: Applicative f => NonemptyFold a b -> NonemptyFold (f a) (f b)
 nest NonemptyFold{ initial, step, extract } = NonemptyFold
     { initial = fmap initial, step = liftA2 step, extract = fmap extract }
+
+{-| Convert a nonempty fold for a single item (@x@) into a
+    nonempty fold for nonempty lists of items (@xs@) -}
+repeatedly :: forall x xs result.
+    (forall b. NonemptyFold x b -> xs -> b)
+        -- ^ A witness to the fact that @xs@ is a nonempty list of @x@
+    -> NonemptyFold x result
+    -> NonemptyFold xs result
+repeatedly runXs foldX =
+  NonemptyFold
+    { initial = runXs (duplicate foldX)
+    , step = \f -> runXs (Nonempty.fold (Pure.duplicate f))
+    , extract = \f -> Pure.Run.run f []
+    }
