@@ -4,7 +4,7 @@ import Fold.Pure
 
 import Test.Hspec
 
-import Control.Applicative (pure, (<*>))
+import Control.Applicative (pure, (<*>), liftA2)
 import Data.Bool (Bool (..))
 import Data.Foldable (traverse_)
 import Data.Function (id, on, (.), (&), flip)
@@ -12,7 +12,7 @@ import Data.Functor ((<$>))
 import Data.Maybe (Maybe (Just, Nothing))
 import Data.Monoid (mempty)
 import Data.Semigroup (Sum (Sum))
-import Prelude ((>), String, Integer, (+), (*))
+import Prelude ((>), String, Integer, (+), (*), odd)
 
 import qualified Data.Foldable as Foldable
 import qualified Data.List as List
@@ -145,3 +145,21 @@ spec = describe "Fold" do
                 b = [4..6]
                 c = [1..6]
             (sum & duplicate & flip run a & flip run b) `shouldBe` (List.sum c)
+
+    describe "repeatedly" do
+        let a, b, c :: [Integer]
+            a = [2, 4]
+            b = [10, 12, 5, 7, 8]
+            c = [4, 5, 6]
+            abc = [a, b, c] :: [[Integer]]
+        it "can fold a list of lists" do
+            run (repeatedly run sum) abc `shouldBe` List.sum (List.concat abc)
+        it "works in Applicative combination with another fold" do
+            let f = liftA2 (,) (repeatedly run length) length
+            run f abc `shouldBe` (10, 3)
+        it "works in Applicative combination with another 'repeatedly'" do
+            let f = liftA2 (,) (repeatedly run (find odd)) (repeatedly run maximum)
+            run f abc `shouldBe` (Just 5, Just 12)
+        it "works on an Applicative combination" do
+            let f = liftA2 (,) (find odd) maximum
+            run (repeatedly run f) abc `shouldBe` (Just 5, Just 12)

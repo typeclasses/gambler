@@ -12,7 +12,7 @@ import Data.List.NonEmpty (NonEmpty ((:|)))
 import Data.Maybe (Maybe (..))
 import Data.Ord (Ord (..))
 import Positive (Positive)
-import Prelude (Integer, undefined)
+import Prelude (Integer, undefined, odd)
 
 import qualified Data.Char as Char
 import qualified Fold.Shortcut as Empty
@@ -83,3 +83,43 @@ spec = describe "ShortcutNonemptyFold" do
                 b = undefined
                 f = find (>= 10)
             (f & duplicate & flip run a & flip Empty.run b) `shouldBe` Just 15
+
+    describe "repeatedly" do
+        it "can find an item in a list of lists" do
+            let a, b, c :: NonEmpty Integer
+                a = [2, 8, 6]
+                b = [12, 4, 5, 16]
+                c = [4, 18, 20]
+            run (repeatedly run (find odd)) [a, b, c]
+                `shouldBe` Just 5
+        it "preserves laziness" do
+            let a, b, c :: NonEmpty Integer
+                a = [2, 8, 6]
+                b = 12 :| 4 : 5 : undefined
+                c = undefined
+            run (repeatedly run (find odd)) [a, b, c]
+                `shouldBe` Just 5
+        it "works within an Applicative combination with another 'repeatedly'" do
+            let a, b, c :: NonEmpty Integer
+                a = [2, 8, 6]
+                b = 12 :| 4 : 5 : undefined
+                c = undefined
+                f = liftA2 (,) (repeatedly run (find odd)) (repeatedly run (find (> 5)))
+            run f [a, b, c]
+                `shouldBe` (Just 5, Just 8)
+        it "works on an Applicative combination of 'repeatedly's" do
+            let a, b, c :: NonEmpty Integer
+                a = [2, 8, 6]
+                b = 12 :| 4 : 5 : undefined
+                c = undefined
+                f = liftA2 (,) (find odd) (find (> 5))
+            run (repeatedly run f) [a, b, c]
+                `shouldBe` (Just 5, Just 8)
+        it "works within an Applicative combination with something ambivalent" do
+            let a, b, c :: NonEmpty Integer
+                a = [2, 8, 6]
+                b = 12 :| 4 : 5 : undefined
+                c = undefined
+                f = liftA2 (,) (find odd) length
+            run (repeatedly run f) [a, b, c]
+                `shouldBe` (Just 5, 6)

@@ -17,7 +17,7 @@ module Fold.ShortcutNonempty
 
     {- * Conversion -} fold, effectfulFold, nonemptyFold, shortcutFold,
 
-    {- * Utilities -} demotivate, duplicate,
+    {- * Utilities -} motivate, demotivate, duplicate, repeatedly, premap,
   )
   where
 

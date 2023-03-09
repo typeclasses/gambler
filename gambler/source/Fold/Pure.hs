@@ -17,7 +17,7 @@ module Fold.Pure
 
     {- * Conversion -} effectfulFold, nonemptyFold, shortcutFold, shortcutNonemptyFold,
 
-    {- * Utilities -} duplicate, premap, prefilter, predropWhile, drop, nest,
+    {- * Utilities -} duplicate, repeatedly, premap, prefilter, predropWhile, drop, nest,
   )
   where
 
