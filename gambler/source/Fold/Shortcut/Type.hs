@@ -9,8 +9,8 @@ import Control.Applicative (Applicative, liftA2, pure, (<*>))
 import Data.Functor (Functor, fmap)
 import Data.Monoid (Monoid, mempty)
 import Data.Semigroup (Semigroup, (<>))
-import Strict (Will (..), Vitality (..), Vitality')
 import Data.Void (absurd)
+import Strict (Will (..), Vitality (..), Vitality')
 
 import qualified Strict
 

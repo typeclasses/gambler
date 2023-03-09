@@ -9,20 +9,19 @@ import Fold.Effectful.Type (EffectfulFold)
 import Fold.Nonempty.Type (NonemptyFold)
 import Fold.Pure.Type (Fold (Fold))
 import Fold.ShortcutNonempty.Type (ShortcutNonemptyFold (ShortcutNonemptyFold))
-import Data.Void (absurd)
+import Data.Void (Void)
 
 import qualified Fold.Pure.Conversion as Fold
 import qualified Fold.Pure.Type as Fold
 import qualified Fold.ShortcutNonempty.Type as ShortcutNonempty
 import qualified Strict
 
-fold :: Fold a b -> ShortcutFold a b
-fold
-  Fold{ Fold.initial, Fold.step, Fold.extract } =
+fold :: forall a b. Fold a b -> ShortcutFold a b
+fold Fold{ Fold.initial = initial :: x, Fold.step, Fold.extract } =
     ShortcutFold
       { initial = Alive Ambivalent initial
-      , step = \x a -> Alive Ambivalent (step x a)
-      , extract = \v -> case v of { Alive _ x -> extract x; Dead x -> absurd x }
+      , step = \x a -> Alive Ambivalent (step x a) :: Vitality Void x
+      , extract = \v -> case v of { Alive _ x -> extract x }
       }
 
 effectfulFold :: EffectfulFold Identity a b -> ShortcutFold a b
