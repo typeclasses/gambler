@@ -15,7 +15,7 @@ duplicate NonemptyFold{ initial, step, extract } =
     NonemptyFold{ initial, step, extract = \x -> Fold
         { Pure.initial = x, Pure.step, Pure.extract } }
 
-{-| @(premap f folder)@ returns a new fold where @f@ is applied at each step -}
+{-| Applies a function to each input before processing -}
 premap :: (a -> b) -> NonemptyFold b r -> NonemptyFold a r
 premap f NonemptyFold{ initial, step, extract } =
     NonemptyFold{ initial = \a -> initial (f a),
