@@ -9,6 +9,7 @@ module Strict
     {- * Tuples -} Tuple2 (..), Tuple3 (..),
     {- * Shortcut -} Vitality (..), Vitality', Will (..),
         unlessDead, vitality2, willSave, isAlive, isDead,
+        getVitality',
   )
   where
 
@@ -83,3 +84,8 @@ isAlive v = case v of { Alive _ _ -> True; Dead _ -> False }
 
 isDead :: Vitality a b -> Bool
 isDead v = case v of { Alive _ _ -> False; Dead _ -> True }
+
+getVitality' :: Vitality' a -> a
+getVitality' v = case v of
+    Dead x -> x
+    Alive _ x -> x
