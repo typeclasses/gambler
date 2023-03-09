@@ -1,6 +1,6 @@
 module Fold.ShortcutNonempty
   (
-    {- * Type -} ShortcutNonemptyFold (..),
+    {- * Type -} ShortcutNonemptyFold (..), Will (..), Vitality (..),
 
     {- * Run -} run,
 

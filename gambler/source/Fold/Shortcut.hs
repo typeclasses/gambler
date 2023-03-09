@@ -1,6 +1,6 @@
 module Fold.Shortcut
   (
-    {- * Type -} ShortcutFold (..),
+    {- * Type -} ShortcutFold (..), Will (..), Vitality (..),
 
     {- * Run -} run,
 
