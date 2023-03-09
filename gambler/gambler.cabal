@@ -9,7 +9,7 @@ description: This library provides strict left folds that stream in constant
     memory, and you can combine folds using @Applicative@ style to derive new
     folds that still traverse the list only once.
 
-author: Gabriella Gonzalez
+author: Gabriella Gonzalez, Chris Martin
 maintainer: Chris Martin, Julie Moronuki
 
 license: BSD-3-Clause
