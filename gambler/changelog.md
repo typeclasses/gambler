@@ -1,4 +1,4 @@
-## 0.4.1.0
+## 0.4.1.0 (2023-03-09)
 
 `Will (..)` and `Vitality (..)` are now re-exported from
 `Fold.Shortcut` and `Fold.ShortcutNonempty`; previously these
