@@ -109,4 +109,4 @@ test-suite test-gambler
         OverloadedLists
     build-depends:
       , gambler
-      , hspec ^>= 2.8.5 || ^>= 2.9 || ^>= 2.10
+      , hspec ^>= 2.8.5 || ^>= 2.9 || ^>= 2.10 || ^>= 2.11

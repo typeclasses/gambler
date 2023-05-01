@@ -17,7 +17,6 @@ ghc."9.2" = nixos-22-11.haskell.packages.ghc92.override (old: {
     overrides = combineOverrides old [
         sourceOverrides
         (new: old: {
-            # package-name = new.callPackage ./nix/package-name-0.0.0.0.nix {};
         })
     ];
 });
@@ -26,6 +25,9 @@ ghc."9.4" = nixos-unstable.haskell.packages.ghc94.override (old: {
     overrides = combineOverrides old [
         sourceOverrides
         (new: old: {
+            hspec = new.callPackage ./nix/hspec-2.11.nix {};
+            hspec-core = new.callPackage ./nix/hspec-core.nix {};
+            hspec-discover = new.callPackage ./nix/hspec-discover.nix {};
         })
     ];
 });
